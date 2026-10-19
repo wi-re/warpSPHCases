@@ -1,0 +1,92 @@
+# These sources establish benchmark definitions or reference availability.
+# A listed download has not been fetched or checked for redistribution rights.
+- id: spheric-01
+  family: oscillating-droplet
+  url: https://www.spheric-sph.org/tests/test-01
+  locator: Theoretical solutions; Results format
+  reference_kind: analytic-ode
+  finding: Central-force drop; single-phase and layered variants; ODE generator and axis/energy data listed.
+- id: spheric-02
+  family: dam-break
+  url: https://www.spheric-sph.org/tests/test-02
+  locator: Archive includes; Publications using this test
+  reference_kind: experimental
+  finding: Three-dimensional obstacle benchmark with geometry code and experimental spreadsheet listed.
+- id: spheric-03
+  family: lid-driven-cavity
+  url: https://www.spheric-sph.org/tests/test-03
+  locator: Tasks; References
+  reference_kind: numerical
+  finding: Prescribed Reynolds numbers and resolutions; centreline profiles and kinetic energy requested.
+- id: spheric-06
+  family: driven-square
+  url: https://www.spheric-sph.org/tests/test-06
+  locator: Boundary conditions; Results format; Benchmark results
+  reference_kind: numerical-convergence
+  finding: Square accelerates to steady translation; motion and separate pressure/viscous drag files provided.
+- id: spheric-08
+  family: gresho
+  url: https://www.spheric-sph.org/tests/test-08
+  locator: Geometry; Discretization; Results format
+  reference_kind: analytic
+  finding: Periodic unit square; ideal gas gamma 5/3; lattice/glass initial states and binned reference profiles listed.
+- id: spheric-10
+  family: sloshing-tank
+  url: https://www.spheric-sph.org/tests/test-10
+  locator: Introduction; downloadable archive
+  reference_kind: experimental
+  finding: Separate lateral/roof impacts and water/oil experiments; pressure, roll history and repeatability data.
+- id: spheric-16
+  family: taylor-green-vortex
+  url: https://www.spheric-sph.org/tests/test-16
+  locator: Introduction; Initial conditions; Results specification
+  reference_kind: analytic
+  finding: Fully three-dimensional tri-periodic laminar vortex decay; distinct from extruding a 2D field.
+- id: spheric-22
+  family: taylor-green-vortex
+  url: https://www.spheric-sph.org/tests/test-22
+  locator: Introduction; Initial conditions; Results specification
+  reference_kind: weakly-compressible-asymptotic
+  finding: Weakly compressible approximation with compatible density and pressure; distinguish from classical incompressible TGV.
+- id: spheric-23
+  family: blob-wind
+  url: https://www.spheric-sph.org/tests/test-23
+  locator: Initial conditions; Results specification; Discretization
+  reference_kind: cross-method
+  finding: Wind-driven cloud disruption benchmark; not a static fluid blob.
+- id: lecoanet2016
+  family: kelvin-helmholtz
+  url: https://arxiv.org/abs/1509.03630
+  locator: Abstract and linked paper
+  reference_kind: numerical-convergence
+  finding: Smooth ICs and explicit diffusion define well-posed nonlinear KH benchmark problems.
+- id: lobovsky2014
+  family: dam-break
+  url: https://www.sciencedirect.com/science/article/pii/S0889974614000656
+  locator: Experimental setup; Results; Supplementary Materials
+  reference_kind: experimental-statistical
+  finding: Two filling heights; repeated pressure measurements, front evolution and uncertainty statistics.
+- id: dfg-2d-1
+  family: cylinder-wake
+  url: https://wwwold.mathematik.tu-dortmund.de/~featflow/en/benchmarks/cfdbenchmarking/flow/dfg_benchmark1_re20.html
+  locator: Geometry and flow configuration; Reference results
+  reference_kind: numerical-high-order
+  finding: Confined channel cylinder with parabolic inlet and outflow; drag, lift and pressure difference at Re20.
+- id: dfg-2d-2
+  family: cylinder-wake
+  url: https://wwwold.mathematik.tu-dortmund.de/~featflow/en/benchmarks/cfdbenchmarking/flow/dfg_benchmark2_re100.html
+  locator: Boundary conditions; New reference results
+  reference_kind: numerical
+  finding: Re100 time-periodic shedding with downloadable force/pressure series and specified measurement protocol.
+- id: athena2020
+  family: double-mach
+  url: https://doi.org/10.3847/1538-4365/ab929b
+  locator: Hydrodynamic tests; Shu-Osher; implosion; double Mach reflection
+  reference_kind: numerical
+  finding: Established compressible test suite supplies additional target families beyond current registry names.
+- id: spheric-index
+  family: catalogue
+  url: https://www.spheric-sph.org/validation-tests
+  locator: Numbered list of benchmark cases
+  reference_kind: catalogue
+  finding: External coverage checklist of 24 numbered benchmarks; many require additional physical models.

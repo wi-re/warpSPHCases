@@ -1,0 +1,19 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: shock-cylinder
+family: compressible-walls
+title: Shock hitting a cylinder
+status: stub
+description: ''
+cases:
+- shockCylinder
+solvers:
+- compressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from:
+- compressibleWalls/06-shockCylinder.py

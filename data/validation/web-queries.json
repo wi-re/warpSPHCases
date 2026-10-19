@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-19",
+  "method": "Web search; primary sources selected for evidence; queries without relevant hits do not establish absence.",
+  "queries": [
+    "SPHERIC validation benchmark test cases experimental data dam break sloshing",
+    "SPH hydrodynamics benchmark linear wave Kelvin Helmholtz high order reference solutions Hopkins 2015",
+    "smoothed particle hydrodynamics benchmark cases review validation Taylor Green Gresho",
+    "Lobovsky 2014 experimental investigation dynamic pressure loads dam break flow data",
+    "Hopkins 2015 new class accurate mesh free hydrodynamic simulation methods linear wave Gresho Kelvin Helmholtz tests",
+    "Frontiere Raskin Owen 2017 CRKSPH verification tests Kidder Noh Sedov triple point",
+    "Lecoanet McCourt Quataert Burns Vasil Oishi Brown Stone OLeary 2016 Kelvin Helmholtz instability reference solution",
+    "Athena hydrodynamics test suite Shu Osher double Mach Woodward Colella implosion",
+    "site.spheric-sph.org test 1 oscillating drop central force",
+    "site:spheric-sph.org/tests/test-22 Taylor Green",
+    "site:spheric-sph.org/tests/test-2 dam break",
+    "site:featflow.de DFG benchmark flow cylinder 2D-1 2D-2",
+    "Ghia Ghia Shin 1982 high Reynolds incompressible flow driven cavity tables",
+    "SPH Poiseuille Taylor Couette Stokes array validation Morris 1997 Adami 2012",
+    "SPH rotating square patch water impact Marrone 2011 delta SPH validation",
+    "SPHERIC linear wave convergence acoustic wave Dehnen Aly 2012",
+    "site:featflow.de/en/benchmarks/cfdbenchmarking/flow/dfg_benchmark.html",
+    "site:spheric-sph.org/tests/test-23 wind bubble shock",
+    "site:spheric-sph.org/tests/test-16 decay three dimensional vortices",
+    "site:arxiv.org CRKSPH Conservative Reproducing Kernel Smoothed Particle Hydrodynamics 2017",
+    "site:featflow.de \"2D-1\" \"2D-2\" benchmark cylinder",
+    "SPH \"Kolmogorov flow\" \"shear wave\" validation reference",
+    "\"SPH\" \"piston\" \"forward facing step\" \"bow shock\" validation",
+    "\"SPH\" \"shock cylinder\" \"shock reflection\" benchmark",
+    "DFG benchmark flow around cylinder Featflow 2D 1 2D 2 reference data"
+  ]
+}

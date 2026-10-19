@@ -1,0 +1,207 @@
+# Active study targets; no row implies a new registry entry.
+- id: marrone2011-section-3-1
+  family: dam-break
+  priority: P0
+  scope: current-fluid-physics
+  delivery: paper-study
+  gap: reference-and-measurement-adapter
+  reference: marrone2011
+  target: Reproduce section 3.1 wall-impact pressure histories (Fig. 5) using the existing dam-break builder.
+  metrics: Matched P1/P2 traces, impulse and arrival time with the paper measurement/scaling protocol.
+  prerequisite: Reconcile solver probe and Plotting configs; extract reference traces and define acceptance criteria.
+- id: marrone2011-section-3-3
+  family: dam-break
+  priority: P0
+  scope: capability-check
+  delivery: paper-study-with-specialized-geometry
+  gap: existing-setup-reconciliation
+  reference: marrone2011
+  target: Reproduce the section 3.3 3D rectangular-step experiment (Fig. 17).
+  metrics: P1/P3/P6 pressure histories and impact impulse at the specified sensor positions.
+  prerequisite: Locate the user-identified Remote setup and audit dimensionality/geometry/probes; do not promote a 2D
+    proxy to the 3D paper benchmark.
+- id: wc-tgv-spheric22
+  family: taylor-green-vortex
+  priority: P1
+  gap: exact-reference-variant
+  reference: spheric-22
+  target: Compatible weakly compressible pressure/density/velocity expansion at fixed Mach and viscosity.
+  metrics: Field errors and energy decay against the WC approximation; separate asymptotic error from discretization.
+  prerequisite: Audit existing analytic-pressure variant against the full expansion; setting initial pressure alone does
+    not prove equivalence.
+  scope: current-fluid-physics
+  delivery: paper-study-or-specialized-adapter
+- id: vortices-3d-spheric16
+  family: taylor-green-vortex
+  priority: P2
+  gap: exact-dimension-and-ic-variant
+  reference: spheric-16
+  target: Fully 3D tri-periodic analytic laminar flow.
+  metrics: Three velocity components; pressure; energy and convergence.
+  prerequisite: New or extended sampler and reference; extruded 2D TGV is insufficient.
+  scope: capability-check
+  delivery: paper-study-or-specialized-adapter
+- id: kh-smooth-explicit-diffusion
+  family: kelvin-helmholtz
+  priority: P1
+  gap: exact-reference-variant
+  reference: lecoanet2016
+  target: Smooth well-posed nonlinear KH with specified physical diffusion.
+  metrics: Mode growth and field/tracer error over a justified convergence interval.
+  prerequisite: Match profiles, diffusion and diagnostics; audit physical-model support before implementation.
+  scope: capability-check
+  delivery: paper-study-or-specialized-adapter
+- id: dambreak-lobovsky-030-060
+  family: dam-break
+  priority: P1
+  gap: exact-experiment-and-data-adapter
+  reference: lobovsky2014
+  target: Keep 0.3 m and 0.6 m filling-height experiments distinct; match finite tank width and gate/probes.
+  metrics: Front, run-up, pressure impulse, peak distribution and timing with experimental uncertainty.
+  prerequisite: Acquire reference tables and provenance; audit 3D setup support; document 2D approximation separately.
+  scope: capability-check
+  delivery: paper-study-or-specialized-adapter
+- id: dambreak-marin-spheric02
+  family: dam-break
+  priority: P2
+  gap: exact-experiment-and-3d-adapter
+  reference: spheric-02
+  target: Named three-dimensional obstacle case with experimental water-height/pressure data.
+  metrics: Gauges, pressure and free-surface evolution.
+  prerequisite: Match provider geometry and probes; inspect supplied description/data rather than substitute a generic
+    obstacle.
+  scope: capability-check
+  delivery: paper-study-or-specialized-adapter
+- id: sloshing-tc10-roof-oil
+  family: sloshing-tank
+  priority: P2
+  gap: exact-experiment-variants
+  reference: spheric-10
+  target: Separate lateral-water, lateral-oil and roof-impact protocols and their motion records.
+  metrics: Sensor traces, impulse and repeatability for each experiment.
+  prerequisite: Check air effects and physical model suitability; current lateral-water adapter is not general TC10 support.
+  scope: capability-check
+  delivery: paper-study-or-specialized-adapter
+- id: translating-square-spheric06
+  family: driven-square
+  priority: P1
+  gap: prescribed-motion-variant
+  reference: spheric-06
+  target: Square acceleration-to-translation record in no-slip tank at Re50/100/150.
+  metrics: Separate pressure and viscous drag histories.
+  prerequisite: Add motion-record adapter and exact geometry; existing sinusoidal drivenSquare is a related family.
+  scope: current-fluid-physics
+  delivery: paper-study-or-specialized-adapter
+- id: cylinder-dfg-2d1
+  family: cylinder-wake
+  priority: P2
+  gap: boundary-and-geometry-variant
+  reference: dfg-2d-1
+  target: Confined cylinder with parabolic inlet, no-slip channel walls and specified outlet at Re20.
+  metrics: Drag, lift, front/rear pressure difference.
+  prerequisite: Audit inlet/outlet capabilities; pinned periodic frame cannot be labelled DFG.
+  scope: capability-check
+  delivery: paper-study-or-specialized-adapter
+- id: cylinder-dfg-2d2
+  family: cylinder-wake
+  priority: P2
+  gap: boundary-and-measurement-variant
+  reference: dfg-2d-2
+  target: Same DFG geometry at Re100 with developed periodic shedding and specified force measurement.
+  metrics: Drag/lift histories, Strouhal and pressure difference over matched cycles.
+  prerequisite: Establish 2D-1 setup and startup/transient handling first.
+  scope: capability-check
+  delivery: paper-study-or-specialized-adapter
+- id: blob-ambient-flow-core
+  family: blob-wind
+  priority: P1
+  gap: reusable-blob-initializer
+  reference: frontiere2017
+  target: General blob and ambient-flow dynamics with configurable density contrast, relative velocity, shape, dimension
+    and EOS; paper-specific ICs live in reproduction files.
+  metrics: Dense/mixed cloud mass versus crushing time and field morphology.
+  prerequisite: Implement or reuse a general initial-condition builder; Frontiere 2017 section 4.5.1 supplies separate
+    2D and 3D study definitions; no factory per paper.
+  scope: current-fluid-physics
+  delivery: shared-core-builder-with-paper-presets
+- id: planar-couette-startup
+  family: planar-couette
+  priority: P1
+  gap: named-benchmark-preset
+  reference: morris1997
+  target: Startup and steady planar moving-wall shear; distinct from annular Taylor-Couette.
+  metrics: Transient velocity profiles, wall shear and flux.
+  prerequisite: Check reuse of channel geometry; prescribed wall velocity and analytic series adapter.
+  scope: current-fluid-physics
+  delivery: paper-study-or-specialized-adapter
+- id: expanding-unforced-drop
+  family: expanding-drop
+  priority: P2
+  gap: exact-free-surface-variant
+  reference: monaghan1994
+  target: Unforced elliptical expansion with analytic evolution; distinct from central-potential oscillation.
+  metrics: Semi-axes and energy over finite time.
+  prerequisite: Explicit force-free setup and analytic ODE adapter.
+  scope: current-fluid-physics
+  delivery: paper-study-or-specialized-adapter
+- id: wet-bed-dambreak
+  family: wet-bed-dam-break
+  priority: P2
+  gap: exact-experiment-variant
+  reference: lind2012
+  target: Named wet-bed experiment with matched gate and downstream depth.
+  metrics: Surface profiles and front evolution.
+  prerequisite: Acquire original experiment specification/data and assess gate-removal effects.
+  scope: current-fluid-physics
+  delivery: paper-study-or-specialized-adapter
+- id: backward-facing-step
+  family: backward-step
+  priority: P2
+  gap: geometry-and-reference-preset
+  reference: adami2012
+  target: Viscous separated backward-facing step; not compressible Mach-3 forward step.
+  metrics: Reattachment length and velocity profiles.
+  prerequisite: Reconstruct exact channel, inflow and Reynolds definition.
+  scope: capability-check
+  delivery: paper-study-or-specialized-adapter
+- id: sjogreen-rarefaction
+  family: sjogreen
+  priority: P2
+  gap: named-riemann-preset
+  reference: puri2014
+  target: Double-rarefaction low-density Riemann problem.
+  metrics: State norms, minimum density/pressure and positivity.
+  prerequisite: Audit whether existing Sod state knobs express the exact setup before adding a factory.
+  scope: current-fluid-physics
+  delivery: paper-study-or-specialized-adapter
+- id: shu-osher
+  family: shu-osher
+  priority: P2
+  gap: new-initial-condition-preset
+  reference: athena2020
+  target: Shock interacting with sinusoidal entropy/density structure.
+  metrics: Resolved post-shock oscillations and density profiles against converged reference.
+  prerequisite: New IC profile and independently verified high-order reference.
+  scope: current-fluid-physics
+  delivery: paper-study-or-specialized-adapter
+- id: double-mach-reflection
+  family: double-mach
+  priority: P2
+  gap: new-boundary-and-ic-preset
+  reference: gao2023
+  target: Oblique incident shock with standard moving boundary data.
+  metrics: Shock/contact locations and density contours/profiles.
+  prerequisite: Distinguish from registered one-dimensional shockReflection; match corner/boundary protocol.
+  scope: capability-check
+  delivery: paper-study-or-specialized-adapter
+- id: manufactured-operators
+  family: manufactured-solution
+  priority: P1
+  gap: validation-harness
+  reference: liu2006
+  target: Polynomial and smooth-field reconstruction, gradient, divergence and Laplacian on ordered/disordered/truncated
+    supports.
+  metrics: Consistency residuals and convergence with resolution/support policy.
+  prerequisite: Export operator inputs/outputs and define boundary contribution; no long trajectory needed.
+  scope: current-fluid-physics
+  delivery: paper-study-or-specialized-adapter

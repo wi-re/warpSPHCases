@@ -1,0 +1,130 @@
+slug: sod
+family: compressible
+title: Sod shock tube
+status: drafted
+description: >-
+  A diaphragm separates a dense hot gas from a light cold one; its removal launches a
+  rarefaction, a contact discontinuity and a shock with a known exact solution.
+cases:
+- sod
+- sod2d
+- sod3d
+solvers:
+- compressible
+walls: null
+schemes:
+- CompSPH
+- Monaghan
+- CRKSPH
+- GSPH
+- InutsukaGSPH
+- MFM
+- MFV
+unavailable:
+- scheme: PESPH
+  reason: not assembled yet (PESPH_PLAN, in progress)
+origin:
+  references:
+  - sod1978
+  - monaghan2005
+  - frontiere2017
+  - cha2003
+  - inutsuka2002
+  - hopkins2015
+reference:
+  kind: sod
+  note: exact Riemann solution, sampled at the particle positions of each frame
+
+# --- runs --------------------------------------------------------------------
+# Headline comparison: every scheme at nx 400 with video on. Convergence sweep:
+# the same schemes at four more resolutions with video OFF (28 short runs; the
+# frames add nothing a convergence number needs, and the nx 400 runs carry them).
+runs:
+- schemes: [CompSPH, Monaghan, CRKSPH, GSPH, InutsukaGSPH, MFM, MFV]
+  nx: 400
+  tier: reference
+  golden: true
+  spec: {exportInterval: 0.005}
+- schemes: [CompSPH, Monaghan, CRKSPH, GSPH, InutsukaGSPH, MFM, MFV]
+  nx: [100, 200, 800, 1600]
+  tier: reference
+  video: false
+  spec: {exportInterval: 0.05}
+- scheme: CompSPH
+  nx: 200
+  variant: demo
+  tier: demo
+  spec: {exportInterval: 0.01}
+
+# --- what the page shows -------------------------------------------------------
+figures:
+- id: hero
+  kind: loop
+  alt: Looping animation of the Sod tube profiles against the exact solution.
+  run: CompSPH__default__nx400
+  fields: [density, velocity, pressure]
+- id: snapshots
+  kind: snapshots
+  run: CompSPH__default__nx400
+  times: [0.0, 0.05, 0.10, 0.15]
+  field: density
+  caption: >-
+    CompSPH at nx 400: density at four times. Markers are particles, the line is the exact Riemann solution.
+  alt: Density profiles of the Sod tube at four times with the exact solution.
+- id: overlay
+  kind: overlay
+  select: {nx: 400, variant: default}
+  fields: [density, velocity, pressure, internalEnergy]
+  caption: >-
+    All seven schemes at the final time, drawn over each other. Top: the full tube. Bottom: a zoom on the contact
+    discontinuity and the shock, where the schemes differ.
+  alt: Overlay of all schemes against the exact solution, full tube and zoom on contact and shock.
+- id: grid
+  kind: scheme_grid
+  select: {nx: 400, variant: default}
+  fields: [density, velocity, pressure]
+  caption: >-
+    One row per scheme, one column per field; the number above a panel is the L1 error of that field.
+  alt: Per-scheme particle profiles against the exact solution.
+- id: convergence
+  kind: convergence
+  select: {variant: default}
+  metric: L1 rho
+  xlabel: resolution nx = 1/dx (dense gas)
+  ylabel: L1 error of the density
+  caption: >-
+    L1 error of the density against resolution. The legend gives the observed order (least-squares fit over
+    the five resolutions); dashed and dotted lines are order 1 and 2.
+  alt: Convergence of the density error with resolution for every scheme.
+- id: energy
+  kind: diagnostics
+  select: {nx: 400, variant: default}
+  quantity: totalEnergy
+  relative: true
+  ylabel: relative total-energy change
+  caption: >-
+    Relative change of the total energy over the run for the schemes whose diagnostics report it (symmetric
+    logarithmic axis).
+  alt: Relative total-energy change over time.
+
+tables:
+- id: comparison
+  kind: errors
+  select: {nx: 400, variant: default}
+- id: orders
+  kind: orders
+  select: {variant: default}
+
+notebook: sod.ipynb
+
+migrated_from:
+- compressible/01-sod/sod_1d.ipynb
+- compressible/01-sod/sod_2d.ipynb
+- compressible/01-sod/sod_3d.ipynb
+- compressible/01-sod/sod_backprop.ipynb
+- compressible/01-sod/sod_resume.ipynb
+- sweeps/sod_highres.yaml
+
+site:
+  importance: 1
+  img: hero

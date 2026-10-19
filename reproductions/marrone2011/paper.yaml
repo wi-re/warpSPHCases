@@ -1,0 +1,58 @@
+format: research-draft-v1
+paper: marrone2011
+revision: 1
+source:
+  doi: 10.1016/j.cma.2010.12.016
+  document: marrone2011_delta-sph-violent-impact-flows.pdf
+  sha256: 71eab0b55a5fce3e70528c50cf7f618a7033a473fb78f973bfa4666c44379efe
+status: definition-draft
+studies:
+- id: section-3-1-wall-impact
+  section: '3.1'
+  source_pdf_pages: [3, 4, 5, 6]
+  core_family: dam-break
+  registry_case: dambreak
+  binding: existing-builder
+  priority: P0
+  dimension: 2
+  figure_targets: ['5: P1 and P2 pressure histories']
+  observables: [wall-pressure-series, pressure-impulse, impact-time]
+  setup_status: reconcile-existing-configuration
+  reference_status: needs-trace-extraction-and-provenance
+  metric_status: not-implemented-for-this-study
+  acceptance_status: unscored
+  acceptance_criteria: null
+  existing_evidence:
+  - project: warpSPHPlotting
+    path: examples/verify_frontends.py
+    locator: marrone31 configuration branch
+    kind: frontend-setup
+  - project: warpSPH
+    path: scripts/probe_deltaSPHMarrone.py
+    locator: setup and probe configuration
+    kind: prior-validation-harness
+  - project: warpSPHRemote
+    path: reports/VERIFICATION.md
+    locator: Browser checks; Marrone NPZ sequence
+    kind: recorded-viewer-use
+  next: Resolve exact ICs/BCs, probes, nondimensionalization and numerical settings before scoring.
+- id: section-3-3-step-impact
+  section: '3.3'
+  source_pdf_pages: [8, 9]
+  core_family: dam-break
+  registry_case: dambreak
+  binding: needs-setup-adapter-audit
+  priority: P0
+  dimension: 3
+  figure_targets: ['14: geometry', '16: sensor positions', '17: pressure histories']
+  observables: [P1-pressure-series, P3-pressure-series, P6-pressure-series, pressure-impulse]
+  setup_status: locate-and-reconcile-user-identified-remote-setup
+  reference_status: needs-experimental-data-and-provenance
+  metric_status: not-implemented-for-this-study
+  acceptance_status: unscored
+  acceptance_criteria: null
+  specialized_setup_directory: specialized/section-3-3-step-impact
+  existing_evidence:
+  - kind: user-reported-remote-use
+    locator: User identifies this study as already useful in Remote validation; exact config not yet located.
+  next: Match the full 3D experiment; label any 2D proxy as a separate study.

@@ -1,0 +1,25 @@
+test,title,related_page,assessment,source,definition_review
+1,Central-force drop,oscillating-droplet,related factory; exact parameters need matching,https://www.spheric-sph.org/validation-tests,individual-page
+2,Three-dimensional dam break,dam-break,named 3D experiment and data adapter needed,https://www.spheric-sph.org/validation-tests,individual-page
+3,Driven cavity,lid-driven-cavity,related factory; match Reynolds and measurement protocol,https://www.spheric-sph.org/validation-tests,individual-page
+4,Rippled-bed flow,none,no named preset; geometry and reference work,https://www.spheric-sph.org/validation-tests,index-only
+5,Wet-bottom dam break,dam-break,distinct wet-bed experiment needed,https://www.spheric-sph.org/validation-tests,index-only
+6,Translating square,driven-square,different prescribed motion from current factory,https://www.spheric-sph.org/validation-tests,individual-page
+7,Landslide impulse wave,none,no named preset; additional coupling and geometry audit,https://www.spheric-sph.org/validation-tests,index-only
+8,Gresho vortex,gresho,related factory; match pressure profile and sampling,https://www.spheric-sph.org/validation-tests,individual-page
+9,Tuned liquid damping,sloshing-tank,distinct coupled damping system; no exact claim,https://www.spheric-sph.org/validation-tests,index-only
+10,Sloshing impact,sloshing-tank,lateral-water adapter exists; other experiments remain distinct,https://www.spheric-sph.org/validation-tests,individual-page
+11,Rigid-slide tsunami,none,no named preset; additional coupling and geometry audit,https://www.spheric-sph.org/validation-tests,index-only
+12,Wave and floating body,none,no named preset; wave and body-motion audit,https://www.spheric-sph.org/validation-tests,index-only
+13,Perforated breakwater,none,no named preset; wave boundary and geometry audit,https://www.spheric-sph.org/validation-tests,index-only
+14,Free-heave body,none,no named preset; 3D body/fluid coupling audit,https://www.spheric-sph.org/validation-tests,index-only
+15,Iceberg tsunami,none,no named preset; additional coupling and geometry audit,https://www.spheric-sph.org/validation-tests,index-only
+16,Three-dimensional vortex decay,taylor-green-vortex,separate fully 3D analytic field needed,https://www.spheric-sph.org/validation-tests,individual-page
+17,Aircraft ditching,none,no named preset; geometry and coupling audit,https://www.spheric-sph.org/validation-tests,index-only
+18,Flow past elastic object,none,additional elastic-model audit,https://www.spheric-sph.org/validation-tests,index-only
+19,Dam break with FSI,dam-break,distinct elastic-structure problem,https://www.spheric-sph.org/validation-tests,index-only
+20,Jet cooling,impact,distinct thermal problem; model audit,https://www.spheric-sph.org/validation-tests,index-only
+21,Vegetation cylinder under waves,none,no named preset; inspect exact wave/body model,https://www.spheric-sph.org/validation-tests,index-only
+22,Weakly compressible TGV,taylor-green-vortex,audit full compressible expansion separately,https://www.spheric-sph.org/validation-tests,individual-page
+23,Wind and cloud shock,none,new benchmark family; staticBlob is different,https://www.spheric-sph.org/validation-tests,individual-page
+24,Manufactured torsion,none,additional solid-model audit,https://www.spheric-sph.org/validation-tests,index-only

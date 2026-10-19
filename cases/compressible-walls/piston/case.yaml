@@ -1,0 +1,19 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: piston
+family: compressible-walls
+title: Piston
+status: stub
+description: ''
+cases:
+- piston
+solvers:
+- compressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from:
+- compressibleWalls/02-piston.py

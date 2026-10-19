@@ -1,0 +1,153 @@
+slug: sloshing-tank
+family: free-surface
+title: Sloshing tank (SPHERIC Test Case 10)
+status: drafted
+description: >-
+  Shallow water in a rolling rectangular tank: a travelling wave hits the wall once per roll cycle, and the pressure
+  recorded at a wall sensor is the benchmark quantity (SPHERIC test case 10, lateral impact).
+cases:
+- sloshingTank
+solvers:
+- weakly-compressible
+- incompressible
+walls: both
+schemes:
+- deltaSPH
+- omniIncompressible
+reference:
+  kind: tc10
+origin:
+  references:
+  - soutoiglesias2011
+  - marrone2011
+  - english2022
+
+# All runs: the experiment's roll history (reduced file in this page's reference/), 7.5 s so that the four recorded
+# impacts (the last at 7.3 s) are in. Resolution nx = tank width 0.9 m / dx; dt is pinned at 1e-4 s for the
+# weakly compressible runs (sound speed 20 m/s), so the step count does not depend on nx.
+runs:
+- case: sloshingTank
+  schemes: [deltaSPH]
+  label: deltaSPH, boundary particles
+  nx: 200
+  golden: true
+  spec: {tLimit: 7.5, exportInterval: 0.02}
+  params: {rollDataFile: '{pageDir}/reference/spheric-tc10/lateral_water_1kHz.txt'}
+- case: sloshingTank
+  schemes: [deltaSPH]
+  variant: analytic
+  label: deltaSPH, analytic walls
+  nx: 200
+  spec: {tLimit: 7.5, exportInterval: 0.02}
+  params: {rollDataFile: '{pageDir}/reference/spheric-tc10/lateral_water_1kHz.txt', wallRepresentation: analytic}
+# omniIncompressible: the incompressible scheme that runs this case well (the omni preset of the 2026-10-09 sloshing
+# validation: Wendland C2, semi-implicit Euler, CFL 0.2, n_h 2.57; n_h 4 for the support dependence); analytic walls or boundary particles
+- case: sloshingTank
+  schemes: [omniIncompressible]
+  variant: analytic
+  label: omniIncompressible, analytic walls (n_h 2.57)
+  nx: 200
+  golden: true
+  spec: {tLimit: 7.5, exportInterval: 0.02, n_h: 2.57, integrationScheme: semiImplicitEuler, kernel: Wendland2, supportMode: SuperSymmetric, cflFactor: 0.2, dt: 0.001, maxDt: 0.002}
+  params: {rollDataFile: '{pageDir}/reference/spheric-tc10/lateral_water_1kHz.txt', wallRepresentation: analytic}
+- case: sloshingTank
+  schemes: [omniIncompressible]
+  variant: particles
+  label: omniIncompressible, boundary particles (n_h 2.57)
+  nx: 200
+  spec: {tLimit: 7.5, exportInterval: 0.02, n_h: 2.57, integrationScheme: semiImplicitEuler, kernel: Wendland2, supportMode: SuperSymmetric, cflFactor: 0.2, dt: 0.001, maxDt: 0.002}
+  params: {rollDataFile: '{pageDir}/reference/spheric-tc10/lateral_water_1kHz.txt'}
+- case: sloshingTank
+  schemes: [omniIncompressible]
+  variant: analytic-nh4
+  label: omniIncompressible, analytic walls (n_h 4)
+  nx: 200
+  spec: {tLimit: 7.5, exportInterval: 0.02, n_h: 4.0, integrationScheme: semiImplicitEuler, kernel: Wendland2, supportMode: SuperSymmetric, cflFactor: 0.2, dt: 0.001, maxDt: 0.002}
+  params: {rollDataFile: '{pageDir}/reference/spheric-tc10/lateral_water_1kHz.txt', wallRepresentation: analytic}
+# resolution study (video OFF)
+- case: sloshingTank
+  schemes: [deltaSPH]
+  nx: [100, 150, 300]
+  video: false
+  spec: {tLimit: 7.5, exportInterval: 0.1}
+  params: {rollDataFile: '{pageDir}/reference/spheric-tc10/lateral_water_1kHz.txt'}
+- case: sloshingTank
+  schemes: [deltaSPH]
+  variant: analytic
+  label: deltaSPH, analytic walls
+  nx: [100, 150, 300]
+  video: false
+  spec: {tLimit: 7.5, exportInterval: 0.1}
+  params: {rollDataFile: '{pageDir}/reference/spheric-tc10/lateral_water_1kHz.txt', wallRepresentation: analytic}
+- case: sloshingTank
+  schemes: [omniIncompressible]
+  variant: analytic
+  label: omniIncompressible, analytic walls (n_h 2.57)
+  nx: [100, 150, 300]
+  video: false
+  spec: {tLimit: 7.5, exportInterval: 0.1, n_h: 2.57, integrationScheme: semiImplicitEuler, kernel: Wendland2, supportMode: SuperSymmetric, cflFactor: 0.2, dt: 0.001, maxDt: 0.002}
+  params: {rollDataFile: '{pageDir}/reference/spheric-tc10/lateral_water_1kHz.txt', wallRepresentation: analytic}
+- case: sloshingTank
+  schemes: [omniIncompressible]
+  variant: particles
+  label: omniIncompressible, boundary particles (n_h 2.57)
+  nx: [100, 150, 300]
+  video: false
+  spec: {tLimit: 7.5, exportInterval: 0.1, n_h: 2.57, integrationScheme: semiImplicitEuler, kernel: Wendland2, supportMode: SuperSymmetric, cflFactor: 0.2, dt: 0.001, maxDt: 0.002}
+  params: {rollDataFile: '{pageDir}/reference/spheric-tc10/lateral_water_1kHz.txt'}
+# Colab-sized: up to the first impact
+- case: sloshingTank
+  schemes: [deltaSPH]
+  variant: demo
+  nx: 100
+  tier: demo
+  spec: {tLimit: 2.6, exportInterval: 0.02}
+  params: {rollDataFile: '{pageDir}/reference/spheric-tc10/lateral_water_1kHz.txt'}
+
+figures:
+- id: hero
+  kind: loop_tank
+  run: omniIncompressible__analytic__nx200
+  alt: Looping animation of the sloshing tank and the sensor pressure against the experiment.
+- id: trace
+  kind: sensor_trace
+  select: {nx: 200}
+  caption: >-
+    Pressure at wall sensor 1 (left wall at the still-water line) over the simulated time, and a zoom on each of the
+    four recorded impacts. Simulations and the recorded experiment are smoothed the same way (10 ms Gaussian); light
+    grey: the recorded 1 ms mean. Dotted lines: the experimental impact times.
+  alt: Sensor pressure of the simulations against the experiment.
+- id: snapshots
+  kind: tank_snapshots
+  run: omniIncompressible__analytic__nx200
+  caption: >-
+    Particles at the four experimental impact times in the frame that rolls with the tank (walls grey), coloured by
+    speed.
+  alt: Particle snapshots at the four impact times.
+- id: sweep
+  kind: sweep
+  select: {tier: reference}
+  metrics: [peak 1 (mbar), peak 2 (mbar), peak 3 (mbar), peak 4 (mbar)]
+  xlabel: resolution nx
+  caption: >-
+    Smoothed peak pressure of each of the four impacts against resolution; the horizontal line is the recorded
+    experiment smoothed the same way.
+  alt: Peak pressure against resolution.
+
+tables:
+- id: comparison
+  kind: errors
+  select: {nx: 200, tier: reference}
+- id: resolution
+  kind: errors
+  select: {scheme: deltaSPH, tier: reference}
+
+notebook: sloshing-tank.ipynb
+
+migrated_from:
+- sloshingTank/16-sloshing-tank.ipynb
+- sloshingTank/run_sloshingTank.py
+
+site:
+  importance: 1
+  img: hero

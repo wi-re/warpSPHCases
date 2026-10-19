@@ -1,0 +1,29 @@
+[
+  {
+    "document": "scans/gingold1977_theory-and-application-to-non-spherical-stars.pdf",
+    "sha256": "87050acf725493019c84585ceb94f274f753f6cbafea9b1b77f5da8022545971",
+    "reviewed_pages": 15,
+    "date": "2026-10-19",
+    "scope": "All pages visually screened for benchmark families.",
+    "finding": "Sections 4 and 5 test static, oscillating, rotating and magnetic stellar polytropes. These require self-gravity or magnetic physics and are distinct from the current constant-pressure density-square and wall-supported hydrostatic cases.",
+    "candidates": []
+  },
+  {
+    "document": "scans/monaghan1992_smoothed-particle-hydrodynamics-review.pdf",
+    "sha256": "de3b0f7efdc36f51d458fa0d06d7773d7b6507bccbe97076dcfee952a0e11814",
+    "reviewed_pages": 32,
+    "date": "2026-10-19",
+    "scope": "All pages visually screened; application discussion at physical PDF pages 22 to 27.",
+    "finding": "Review discussion at 11.1 covers linear waves, step/cylinder supersonic flow, Sod, Noh and Rayleigh-Taylor, largely pointing to prior or unpublished work. Section 11.12 discusses nearly incompressible dam/bore flows. These are discovery/discussion relationships, not newly supplied exact benchmark specifications.",
+    "candidates": [["linear-wave",22],["forward-step",22],["bow-shock",22],["sod",22],["noh",22],["rayleigh-taylor",22],["dam-break",27]]
+  },
+  {
+    "document": "scans/monaghan1994_simulating-free-surface-flows.pdf",
+    "sha256": "25fe562b27276b96eacdb150cf99bd249f935d31207e628ec912dd5d4485ad95",
+    "reviewed_pages": 8,
+    "date": "2026-10-19",
+    "scope": "All pages visually screened; benchmark sections and tables inspected.",
+    "finding": "Section 6 gives an unforced elliptical drop with analytic ODE comparison, section 7 compares collapsing-dam kinematics to Martin and Moyce, and section 9 demonstrates wave generation. The drop is distinct from central-force oscillation.",
+    "candidates": [["expanding-drop",4],["dam-break",5],["regular-wave",6]]
+  }
+]

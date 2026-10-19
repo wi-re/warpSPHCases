@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "warpSPHCases"
+version = "0.0.1"
+authors = [{ name = "Rene Winchenbach", email = "contact@fluids.dev" }]
+description = "Documented validation and example cases for warpSPH: run specs, references, derived quantities, notebooks and the fluids.dev/cases pages"
+readme = { file = "README.md", content-type = "text/markdown" }
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "warpSPH",
+    "numpy",
+    "h5py",
+    "matplotlib",
+    "pyyaml",
+    "jsonschema",
+]
+
+[project.scripts]
+warpsph-cases = "warpSPHCases.cli:main"
+
+[project.optional-dependencies]
+# publishing to the website repo: needs the ffmpeg binary on PATH (not on Colab)
+site = []
+hf = ["huggingface_hub"]
+dev = ["pytest", "nbstripout"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

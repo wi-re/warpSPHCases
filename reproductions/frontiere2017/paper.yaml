@@ -1,0 +1,1483 @@
+format: research-draft-v1
+paper: frontiere2017
+source:
+  doi: 10.1016/j.jcp.2016.12.004
+  document: frontiere2017_crksph.pdf
+  sha256: 0e3c7cad7fa581f171d3092dfe89abc95d3c8397fd7abe92263afc2b841c7485
+revision: 3
+status: definition-draft
+scope:
+  primary: Section 4 dynamics evaluations, including dimensional and shear variants
+  families: 14
+  initial_solver: CRKSPH
+  exclusions:
+  - Appendix interpolation/operator tests are a separate unit-test track.
+  - Section 4.6 timing repeats Noh; no new dynamics study or timing acceptance target.
+  - Other solvers are selected comparisons, not a Cartesian product with all resolutions.
+numerical_protocol:
+  source_pdf_pages:
+  - 13
+  - 14
+  kernel: seventh-order B-spline W7 (B7)
+  radial_support_in_particle_spacings: 4
+  paper_n_h: 1
+  warpsph_support_radius_n_h_candidate: 4
+  support_convention_note: Paper n_h counts particles per smoothing scale; warpSPH n_h counts support-radius
+    spacings. Verify actual neighbor distribution, not parameter spelling.
+  time_integrator: modified second-order Runge-Kutta
+  cfl: 0.25
+  viscosity:
+    C_l: 2
+    C_q: 1
+    limiter: Section 3.2
+  energy_update: compatible; Kidder additionally compares total-energy evolution
+  precision_policy: Use float64 for the initial acoustic/convergence pilot; record precision for every run.
+  parity_gates:
+  - Reconcile adaptive support and volume/density evaluation with Eqs. (75)-(76).
+  - Reconcile viscosity limiter and energy update against the implemented CRKSPH; an enum match alone is insufficient.
+  - Resolve every published IC, boundary and sampling difference before labelling a recording a paper reproduction.
+  reflecting_boundary_realization:
+    method: reflected-initial-conditions-periodic
+    accepted_by_user: '2026-10-19'
+    copies: 2**k for k reflected axes; 2/4/8 when all axes reflect in 1D/2D/3D
+    scalar_parity: Copy density, pressure, energy and material/origin labels unchanged.
+    velocity_parity: Reverse each velocity component normal to its reflected plane; preserve tangential components.
+    measurement_region: Use the physical paper domain, excluding reflected copies from profiles and integral
+      normalizations.
+    scope: Stationary planar slip/symmetry walls; prescribed-state boundaries such as Kidder/Yee/RT remain
+      study-specific.
+    policy: A dedicated reflecting-wall solver is not a prerequisite; verify the IC transform and physical
+      particle counts.
+execution_policy:
+  status: not-executable-yet
+  reason: Definitions and builder candidates are not resolved runner configurations. Each study lists the remaining
+    setup checks.
+  first_wave:
+  - section-4-1-acoustic
+  - section-4-3-1-sod-1d
+  - section-4-3-2-sedov-1d
+  - section-4-3-3-noh-1d
+  - section-4-4-1-gresho
+  - section-4-4-2-yee
+  second_wave:
+  - section-4-0-1-kidder
+  - section-4-2-hydrostatic
+  - section-4-3-4-woodward
+  - section-4-4-3-kh
+  - section-4-4-4-rt
+  - section-4-4-5-shearing-noh-vs1
+  - section-4-4-5-shearing-noh-vs5
+  later_wave: 3D and additional dimensional studies, blob, and the mixed-gamma triple point after capability
+    checks
+  convergence: Use the published acoustic/Yee resolution lists once the metric and one representative run are
+    checked. Extract Fig. 11 shock resolutions before a paper-matched sweep.
+study_groups:
+  blob:
+    setup:
+      eos: ideal-gas
+      gamma: 1.6666666666666667
+      ambient_density: 1
+      cloud_density: 10
+      pressure: 1
+      cloud_radius: 1
+      cloud_initial_velocity: zero
+      ambient_mach: 2.7
+      boundaries: periodic
+      initialization: cloud excised from ambient lattice and filled with equal-mass particles
+      tau_crush: 2 * cloud_radius * sqrt(cloud_density / ambient_density) / wind_speed
+      tau_KH: 1.6 * tau_crush
+    measurement:
+      locator: Section 4.5.1 PDF page 33; Fig. 23 on page 34
+      cloud_mass_criterion:
+        density: rho > 0.64 * initial_cloud_density
+        temperature: T < 0.9 * initial_ambient_temperature
+        population: all gas particles satisfying both criteria; not initial cloud IDs only
+      normalization: retained mass / initial cloud mass
+      time_coordinate: t / tau_KH
+      interpretation: Cross-method published comparison; late nonlinear evolution depends on interface perturbations.
+studies:
+- id: section-4-0-1-kidder
+  section: 4.0.1
+  source_pdf_pages:
+  - 13
+  - 14
+  - 15
+  core_family: kidder
+  registry_case: kidder
+  binding: existing-builder-needs-reconciliation
+  priority: P1
+  dimension: 1
+  figure_targets:
+  - '1: entropy ratio; compatible versus total energy'
+  setup:
+    domain:
+    - 0.9
+    - 1
+    gamma: 3
+    inner_pressure: 0.1
+    outer_pressure: 10
+    outer_density: 0.01
+    initial_velocity: 0
+    boundaries: Analytic time-dependent state on inner and outer 10 particles; these are included in the 100
+      points.
+  published_sampling:
+    total_particles: 100
+    boundary_particles_per_end: 10
+  comparison_times:
+    t_over_tau:
+    - 0.99
+  reference:
+    kind: analytic
+    locator: Eqs. (83)-(93)
+  measurement:
+    entropy-ratio: P/rho**gamma divided by analytic initial entropy, plotted against current radius; score
+      only evolving particles.
+    energy-drift: Track total energy separately from entropy error; boundary work must be accounted for.
+  setup_gaps:
+  - Override outer pressure 1 to 10 and verify gamma is derived from nu=1.
+  - Confirm the count of active/boundary nodes and analytic boundary update.
+  - Verify a total-energy update is exposed before claiming the second curve.
+  observables:
+  - entropy-ratio
+  - energy-drift
+  setup_status: requires-setup-reconciliation
+  reference_status: analytic-adapter-required
+  metric_status: definition-transcribed-not-implemented
+  acceptance_status: unscored
+  acceptance_criteria: null
+  material_model: single-gamma-ideal-gas
+  comparison_mode: quantitative-analytic-target
+- id: section-4-1-acoustic
+  section: '4.1'
+  source_pdf_pages:
+  - 15
+  - 16
+  core_family: linear-wave
+  registry_case: linearWave
+  binding: existing-builder-needs-reconciliation
+  priority: P0
+  dimension: 1
+  figure_targets:
+  - '2: density L1 convergence'
+  setup:
+    domain:
+    - - 0
+      - 1
+    boundaries: periodic
+    gamma: 1.6666666666666667
+    density: 1
+    sound_speed: 1
+    pressure: 0.6
+    amplitude: 1.0e-06
+    wavelength: 1
+    initial_fields: 'Eq. (94): delta=A*sin(2*pi*x); rho=1+delta, vx=delta, P=0.6+delta.'
+  published_sampling:
+    particle_counts:
+    - 20
+    - 31
+    - 50
+    - 59
+    - 126
+    - 200
+    - 316
+    - 502
+    - 796
+    - 1261
+    - 2000
+    placement: uniform initial lattice
+  comparison_times:
+  - 5
+  reference:
+    kind: analytic
+    locator: Eqs. (94)-(95); linear traveling wave
+  measurement:
+    density-L1: Unweighted mean(abs(rho_i-rho_exact(x_i,t))) at CURRENT particle positions, Eq. (95).
+    density-L1-over-amplitude: Diagnostic normalized by 1e-6, in addition to the published absolute L1.
+  setup_gaps:
+  - Override Wendland4/Gather defaults to the audited B7/support configuration.
+  - Set tLimit=5 and CFL=0.25; reconcile the case initialConditions dt override with adaptive time stepping.
+  - Set viscosity C_l=2 rather than the solver default 1; verify limiter/compatible energy.
+  - Store float64 density and positions; quantify initial sampler error before interpreting convergence.
+  observables:
+  - density-L1
+  - density-L1-over-amplitude
+  setup_status: requires-setup-reconciliation
+  reference_status: analytic-linear-wave-implemented
+  metric_status: python-density-reference-and-synthetic-tests
+  acceptance_status: unscored
+  acceptance_criteria: null
+  convergence:
+    expected_order: 2
+    fit: Fit log(L1) versus log(1/N); report fit interval, pairwise orders and roundoff plateau.
+  material_model: single-gamma-ideal-gas
+  comparison_mode: quantitative-analytic-target
+- id: section-4-2-hydrostatic
+  section: '4.2'
+  source_pdf_pages:
+  - 15
+  - 16
+  - 17
+  core_family: hydrostatic
+  registry_case: hydrostatic
+  binding: existing-builder-needs-reconciliation
+  priority: P1
+  dimension: 2
+  figure_targets:
+  - '3: initial/final density at t=7'
+  setup:
+    domain:
+    - - 0
+      - 1
+    - - 0
+      - 1
+    boundaries: periodic
+    gamma: 1.5
+    pressure: 1
+    velocity:
+    - 0
+    - 0
+    dense_square:
+      bounds:
+      - - 0.25
+        - 0.75
+      - - 0.25
+        - 0.75
+      density: 4
+    ambient_density: 1
+  published_sampling:
+    lattice:
+    - 100
+    - 100
+    placement: uniform spacing, varying particle masses; not equal-mass spacing
+  comparison_times:
+  - 0
+  - 7
+  reference:
+    kind: analytic
+    locator: Stationary contact discontinuity in Section 4.2
+  measurement:
+    spurious-velocity: RMS and maximum speed; exact stationary state has zero velocity.
+    pressure-error: L1 deviation from P=1.
+    interface-deformation: Density images and tracked dense-region boundary; scalar shape diagnostic is an
+      extension, not a published tolerance.
+  setup_gaps:
+  - Override gamma=5/3, rho_high=2 and tLimit=10 defaults.
+  - Confirm initial pressure=1 in sampler; E0 is an unused legacy label.
+  - Verify uniform spacing/varying masses and density-volume treatment; Appendix B equal-mass variant is a
+    distinct study.
+  observables:
+  - spurious-velocity
+  - pressure-error
+  - interface-deformation
+  setup_status: requires-setup-reconciliation
+  reference_status: analytic-adapter-required
+  metric_status: definition-transcribed-not-implemented
+  acceptance_status: unscored
+  acceptance_criteria: null
+  material_model: single-gamma-ideal-gas
+  comparison_mode: quantitative-analytic-target
+- id: section-4-3-1-sod-1d
+  section: 4.3.1
+  source_pdf_pages:
+  - 17
+  - 18
+  core_family: sod
+  registry_case: sod
+  binding: existing-builder-needs-reconciliation
+  priority: P0
+  dimension: 1
+  figure_targets:
+  - '4: density, pressure, velocity and entropy'
+  setup:
+    domain:
+    - - -0.5
+      - 0.5
+    boundaries: reflecting x; periodic transverse axes
+    gamma: 1.6666666666666667
+    left:
+      rho: 1
+      pressure: 1
+      velocity: 0
+    right:
+      rho: 0.25
+      pressure: 0.1795
+      velocity: 0
+    interface: 0
+    smoothing: Eqs. (96)-(97), half the maximum left/right initial spacing; adjust x positions for equal masses.
+  published_sampling:
+    left_particles: 400
+    right_particles: 100
+    equal_mass: true
+  comparison_times:
+  - 0.15
+  reference:
+    kind: analytic
+    locator: Ideal-gas Riemann solution; compare to published smoothed IC convention.
+  measurement:
+    profiles: Evaluate rho, P, vx and entropy at current x; plot all particles, not just binned means.
+    density-L1: Unweighted particle norm, with physical tube selection declared.
+    transverse-symmetry: In 3D also report vy/vz scatter.
+  setup_gaps:
+  - Reconcile mirrored periodic solver domain with the reflecting physical tube; document coordinate transform
+    and valid time interval.
+  - Verify published equal-mass counts rather than equating nx to total physical particles.
+  - Enable and audit smoothing; ND builder currently needs a smoothing adapter for the paper 3D IC.
+  observables:
+  - profiles
+  - density-L1
+  - transverse-symmetry
+  setup_status: requires-setup-reconciliation
+  reference_status: analytic-adapter-required
+  metric_status: definition-transcribed-not-implemented
+  acceptance_status: unscored
+  acceptance_criteria: null
+  convergence:
+    figure: '11'
+    resolutions: Needs extraction from Fig. 11; do not substitute an undocumented sweep.
+  boundary_realization:
+    method: reflected-initial-conditions-periodic
+    reflected_axes:
+    - x
+    domain_copies: 2
+    physical_measurement_domain: setup.domain; mirrored copies supply boundaries only
+  material_model: single-gamma-ideal-gas
+  comparison_mode: quantitative-analytic-target
+- id: section-4-3-1-sod-3d
+  section: 4.3.1
+  source_pdf_pages:
+  - 17
+  - 18
+  core_family: sod
+  registry_case: sod3d
+  binding: existing-builder-needs-reconciliation
+  priority: P2
+  dimension: 3
+  figure_targets:
+  - '5: profiles, transverse velocities and particle positions'
+  setup:
+    domain:
+    - - -0.5
+      - 0.5
+    - - 0
+      - 0.1
+    - - 0
+      - 0.1
+    boundaries: reflecting x; periodic transverse axes
+    gamma: 1.6666666666666667
+    left:
+      rho: 1
+      pressure: 1
+      velocity: 0
+    right:
+      rho: 0.25
+      pressure: 0.1795
+      velocity: 0
+    interface: 0
+    smoothing: Eqs. (96)-(97), half the maximum left/right initial spacing; adjust x positions for equal masses.
+  published_sampling:
+    left_lattice:
+    - 160
+    - 32
+    - 32
+    right_lattice:
+    - 100
+    - 20
+    - 20
+    equal_mass: true
+  comparison_times:
+  - 0.15
+  reference:
+    kind: analytic
+    locator: Ideal-gas Riemann solution; compare to published smoothed IC convention.
+  measurement:
+    profiles: Evaluate rho, P, vx and entropy at current x; plot all particles, not just binned means.
+    density-L1: Unweighted particle norm, with physical tube selection declared.
+    transverse-symmetry: In 3D also report vy/vz scatter.
+  setup_gaps:
+  - Reconcile mirrored periodic solver domain with the reflecting physical tube; document coordinate transform
+    and valid time interval.
+  - Verify published equal-mass counts rather than equating nx to total physical particles.
+  - Enable and audit smoothing; ND builder currently needs a smoothing adapter for the paper 3D IC.
+  observables:
+  - profiles
+  - density-L1
+  - transverse-symmetry
+  setup_status: requires-setup-reconciliation
+  reference_status: analytic-adapter-required
+  metric_status: definition-transcribed-not-implemented
+  acceptance_status: unscored
+  acceptance_criteria: null
+  boundary_realization:
+    method: reflected-initial-conditions-periodic
+    reflected_axes:
+    - x
+    domain_copies: 2
+    physical_measurement_domain: setup.domain; mirrored copies supply boundaries only
+  material_model: single-gamma-ideal-gas
+  comparison_mode: quantitative-analytic-target
+- id: section-4-3-2-sedov-1d
+  section: 4.3.2
+  source_pdf_pages:
+  - 18
+  - 19
+  - 20
+  core_family: sedov
+  registry_case: sedov
+  binding: existing-builder-needs-reconciliation
+  priority: P0
+  dimension: 1
+  figure_targets:
+  - '6: radial profiles and symmetry; 11: planar density convergence'
+  setup:
+    domain:
+    - - 0
+      - 1
+    boundaries: reflecting symmetry sector
+    gamma: 1.6666666666666667
+    density: 1
+    pressure: 0
+    velocity: 0
+    energy_total_full_space: 1
+    energy_in_single_origin_particle: 0.5
+    stop_condition: analytic shock radius=0.8
+  published_sampling:
+    lattice:
+    - 100
+    energy_deposition: single origin particle; no kernel smoothing
+  comparison_times:
+    shock_radius:
+    - 0.8
+    physical_time: Solve the dimension-dependent analytic Sedov solution; do not use rounded beta constants
+      as the reference.
+  reference:
+    kind: analytic
+    locator: Section 4.3.2, Sedov similarity solution
+  measurement:
+    radial-profiles: Density, specific thermal energy and radial velocity for all active particles.
+    shock-position: Compare extracted numerical front against analytic radius.
+    symmetry: Show angular scatter in 2D/3D; preserve raw particle profiles.
+  setup_gaps:
+  - Use quadrant/singular initialization, not the default smoothed hat; verify E/2**dim normalization.
+  - Audit symmetry boundaries, origin placement and active particle counts in each dimension.
+  - Resolve exact final time and output interpolation/selection before error scoring.
+  observables:
+  - radial-profiles
+  - shock-position
+  - symmetry
+  setup_status: requires-setup-reconciliation
+  reference_status: analytic-adapter-required
+  metric_status: definition-transcribed-not-implemented
+  acceptance_status: unscored
+  acceptance_criteria: null
+  convergence:
+    figure: '11'
+    resolutions: Needs extraction; single-particle deposition must remain fixed as a rule across resolutions.
+  boundary_realization:
+    method: reflected-initial-conditions-periodic
+    reflected_axes:
+    - x
+    domain_copies: 2
+    physical_measurement_domain: setup.domain; mirrored copies supply boundaries only
+  material_model: single-gamma-ideal-gas
+  comparison_mode: quantitative-analytic-target
+- id: section-4-3-2-sedov-2d
+  section: 4.3.2
+  source_pdf_pages:
+  - 18
+  - 19
+  - 20
+  core_family: sedov
+  registry_case: sedov
+  binding: existing-builder-needs-reconciliation
+  priority: P2
+  dimension: 2
+  figure_targets:
+  - '6: radial profiles and symmetry'
+  setup:
+    domain:
+    - - 0
+      - 1
+    - - 0
+      - 1
+    boundaries: reflecting symmetry sector
+    gamma: 1.6666666666666667
+    density: 1
+    pressure: 0
+    velocity: 0
+    energy_total_full_space: 1
+    energy_in_single_origin_particle: 0.25
+    stop_condition: analytic shock radius=0.8
+  published_sampling:
+    lattice:
+    - 100
+    - 100
+    energy_deposition: single origin particle; no kernel smoothing
+  comparison_times:
+    shock_radius:
+    - 0.8
+    physical_time: Solve the dimension-dependent analytic Sedov solution; do not use rounded beta constants
+      as the reference.
+  reference:
+    kind: analytic
+    locator: Section 4.3.2, Sedov similarity solution
+  measurement:
+    radial-profiles: Density, specific thermal energy and radial velocity for all active particles.
+    shock-position: Compare extracted numerical front against analytic radius.
+    symmetry: Show angular scatter in 2D/3D; preserve raw particle profiles.
+  setup_gaps:
+  - Use quadrant/singular initialization, not the default smoothed hat; verify E/2**dim normalization.
+  - Audit symmetry boundaries, origin placement and active particle counts in each dimension.
+  - Resolve exact final time and output interpolation/selection before error scoring.
+  observables:
+  - radial-profiles
+  - shock-position
+  - symmetry
+  setup_status: requires-setup-reconciliation
+  reference_status: analytic-adapter-required
+  metric_status: definition-transcribed-not-implemented
+  acceptance_status: unscored
+  acceptance_criteria: null
+  boundary_realization:
+    method: reflected-initial-conditions-periodic
+    reflected_axes:
+    - x
+    - y
+    domain_copies: 4
+    physical_measurement_domain: setup.domain; mirrored copies supply boundaries only
+  material_model: single-gamma-ideal-gas
+  comparison_mode: quantitative-analytic-target
+- id: section-4-3-2-sedov-3d
+  section: 4.3.2
+  source_pdf_pages:
+  - 18
+  - 19
+  - 20
+  core_family: sedov
+  registry_case: sedov
+  binding: existing-builder-needs-reconciliation
+  priority: P2
+  dimension: 3
+  figure_targets:
+  - '7: radial profiles and symmetry'
+  setup:
+    domain:
+    - - 0
+      - 1
+    - - 0
+      - 1
+    - - 0
+      - 1
+    boundaries: reflecting symmetry sector
+    gamma: 1.6666666666666667
+    density: 1
+    pressure: 0
+    velocity: 0
+    energy_total_full_space: 1
+    energy_in_single_origin_particle: 0.125
+    stop_condition: analytic shock radius=0.8
+  published_sampling:
+    lattice:
+    - 100
+    - 100
+    - 100
+    energy_deposition: single origin particle; no kernel smoothing
+  comparison_times:
+    shock_radius:
+    - 0.8
+    physical_time: Solve the dimension-dependent analytic Sedov solution; do not use rounded beta constants
+      as the reference.
+  reference:
+    kind: analytic
+    locator: Section 4.3.2, Sedov similarity solution
+  measurement:
+    radial-profiles: Density, specific thermal energy and radial velocity for all active particles.
+    shock-position: Compare extracted numerical front against analytic radius.
+    symmetry: Show angular scatter in 2D/3D; preserve raw particle profiles.
+  setup_gaps:
+  - Use quadrant/singular initialization, not the default smoothed hat; verify E/2**dim normalization.
+  - Audit symmetry boundaries, origin placement and active particle counts in each dimension.
+  - Resolve exact final time and output interpolation/selection before error scoring.
+  observables:
+  - radial-profiles
+  - shock-position
+  - symmetry
+  setup_status: requires-setup-reconciliation
+  reference_status: analytic-adapter-required
+  metric_status: definition-transcribed-not-implemented
+  acceptance_status: unscored
+  acceptance_criteria: null
+  boundary_realization:
+    method: reflected-initial-conditions-periodic
+    reflected_axes:
+    - x
+    - y
+    - z
+    domain_copies: 8
+    physical_measurement_domain: setup.domain; mirrored copies supply boundaries only
+  material_model: single-gamma-ideal-gas
+  comparison_mode: quantitative-analytic-target
+- id: section-4-3-3-noh-1d
+  section: 4.3.3
+  source_pdf_pages:
+  - 20
+  - 21
+  - 22
+  core_family: noh
+  registry_case: noh
+  binding: existing-builder-needs-reconciliation
+  priority: P0
+  dimension: 1
+  figure_targets:
+  - '8: radial profiles and symmetry; 11: planar density convergence'
+  setup:
+    domain:
+    - - 0
+      - 1
+    boundaries: reflecting symmetry planes; audit outer boundary treatment
+    gamma: 1.6666666666666667
+    density: 1
+    pressure: 0
+    velocity: -r_hat, unit inward speed
+    shock_speed: 0.3333333333333333
+    post_shock_density: 4
+  published_sampling:
+    lattice:
+    - 100
+  comparison_times:
+  - 0.6
+  reference:
+    kind: analytic
+    locator: Section 4.3.3; verify pre-shock formula against original Noh solution before implementing.
+  measurement:
+    radial-profiles: Density, pressure, specific thermal energy and radial velocity at current radius.
+    shock-position: Analytic radius=t/3; include wall-heating region rather than silently excluding it.
+    symmetry: Angular scatter and density slice for ND.
+  setup_gaps:
+  - Interpret registry v_s=1/3 as shock speed, not incoming speed; check sampler.
+  - Registry currently advertises dim=1 only; 2D/3D need sampler/boundary capability checks before running.
+  - Reconcile physical symmetry sector with any mirrored full solver domain.
+  observables:
+  - radial-profiles
+  - shock-position
+  - symmetry
+  setup_status: requires-setup-reconciliation
+  reference_status: analytic-adapter-required
+  metric_status: definition-transcribed-not-implemented
+  acceptance_status: unscored
+  acceptance_criteria: null
+  convergence:
+    figure: '11'
+    resolutions: Needs extraction from published plot.
+  boundary_realization:
+    method: reflected-initial-conditions-periodic
+    reflected_axes:
+    - x
+    domain_copies: 2
+    physical_measurement_domain: setup.domain; mirrored copies supply boundaries only
+  material_model: single-gamma-ideal-gas
+  comparison_mode: quantitative-analytic-target
+- id: section-4-3-3-noh-2d
+  section: 4.3.3
+  source_pdf_pages:
+  - 20
+  - 21
+  - 22
+  core_family: noh
+  registry_case: noh
+  binding: existing-builder-needs-reconciliation
+  priority: P2
+  dimension: 2
+  figure_targets:
+  - '8: radial profiles and symmetry'
+  setup:
+    domain:
+    - - 0
+      - 1
+    - - 0
+      - 1
+    boundaries: reflecting symmetry planes; audit outer boundary treatment
+    gamma: 1.6666666666666667
+    density: 1
+    pressure: 0
+    velocity: -r_hat, unit inward speed
+    shock_speed: 0.3333333333333333
+    post_shock_density: 16
+  published_sampling:
+    lattice:
+    - 100
+    - 100
+  comparison_times:
+  - 0.6
+  reference:
+    kind: analytic
+    locator: Section 4.3.3; verify pre-shock formula against original Noh solution before implementing.
+  measurement:
+    radial-profiles: Density, pressure, specific thermal energy and radial velocity at current radius.
+    shock-position: Analytic radius=t/3; include wall-heating region rather than silently excluding it.
+    symmetry: Angular scatter and density slice for ND.
+  setup_gaps:
+  - Interpret registry v_s=1/3 as shock speed, not incoming speed; check sampler.
+  - Registry currently advertises dim=1 only; 2D/3D need sampler/boundary capability checks before running.
+  - Reconcile physical symmetry sector with any mirrored full solver domain.
+  observables:
+  - radial-profiles
+  - shock-position
+  - symmetry
+  setup_status: requires-setup-reconciliation
+  reference_status: analytic-adapter-required
+  metric_status: definition-transcribed-not-implemented
+  acceptance_status: unscored
+  acceptance_criteria: null
+  boundary_realization:
+    method: reflected-initial-conditions-periodic
+    reflected_axes:
+    - x
+    - y
+    domain_copies: 4
+    physical_measurement_domain: setup.domain; mirrored copies supply boundaries only
+  material_model: single-gamma-ideal-gas
+  comparison_mode: quantitative-analytic-target
+- id: section-4-3-3-noh-3d
+  section: 4.3.3
+  source_pdf_pages:
+  - 20
+  - 21
+  - 22
+  core_family: noh
+  registry_case: noh
+  binding: existing-builder-needs-reconciliation
+  priority: P2
+  dimension: 3
+  figure_targets:
+  - '9: radial profiles and symmetry'
+  setup:
+    domain:
+    - - 0
+      - 1
+    - - 0
+      - 1
+    - - 0
+      - 1
+    boundaries: reflecting symmetry planes; audit outer boundary treatment
+    gamma: 1.6666666666666667
+    density: 1
+    pressure: 0
+    velocity: -r_hat, unit inward speed
+    shock_speed: 0.3333333333333333
+    post_shock_density: 64
+  published_sampling:
+    lattice:
+    - 100
+    - 100
+    - 100
+  comparison_times:
+  - 0.6
+  reference:
+    kind: analytic
+    locator: Section 4.3.3; verify pre-shock formula against original Noh solution before implementing.
+  measurement:
+    radial-profiles: Density, pressure, specific thermal energy and radial velocity at current radius.
+    shock-position: Analytic radius=t/3; include wall-heating region rather than silently excluding it.
+    symmetry: Angular scatter and density slice for ND.
+  setup_gaps:
+  - Interpret registry v_s=1/3 as shock speed, not incoming speed; check sampler.
+  - Registry currently advertises dim=1 only; 2D/3D need sampler/boundary capability checks before running.
+  - Reconcile physical symmetry sector with any mirrored full solver domain.
+  observables:
+  - radial-profiles
+  - shock-position
+  - symmetry
+  setup_status: requires-setup-reconciliation
+  reference_status: analytic-adapter-required
+  metric_status: definition-transcribed-not-implemented
+  acceptance_status: unscored
+  acceptance_criteria: null
+  boundary_realization:
+    method: reflected-initial-conditions-periodic
+    reflected_axes:
+    - x
+    - y
+    - z
+    domain_copies: 8
+    physical_measurement_domain: setup.domain; mirrored copies supply boundaries only
+  material_model: single-gamma-ideal-gas
+  comparison_mode: quantitative-analytic-target
+- id: section-4-3-4-woodward
+  section: 4.3.4
+  source_pdf_pages:
+  - 21
+  - 22
+  - 23
+  core_family: woodward-colella
+  registry_case: woodwardColella
+  binding: existing-builder-needs-reconciliation
+  priority: P1
+  dimension: 1
+  figure_targets:
+  - '10: density and specific thermal energy'
+  setup:
+    domain:
+    - - 0
+      - 1
+    boundaries: reflecting
+    gamma: 1.4
+    density: 1
+    velocity: 0
+    pressure_regions:
+    - - 0
+      - 0.1
+      - 1000
+    - - 0.1
+      - 0.9
+      - 0.1
+    - - 0.9
+      - 1
+      - 100
+  published_sampling:
+    particles: 1000
+  comparison_times:
+  - 0.038
+  reference:
+    kind: independent-numerical
+    solver: ATHENA Godunov
+    zones: 10000
+    cfl: 0.1
+    locator: Section 4.3.4 / Fig. 10
+  measurement:
+    profiles: Density and specific thermal energy versus x, reference aligned in space/time.
+    monotonicity: Report overshoot/undershoot and shock positions, without inventing analytic truth.
+  setup_gaps:
+  - Text gives t=0.038; Fig. 10 caption prints 0.38. Use text time, retain discrepancy, verify against reference
+    asset.
+  - Map the existing mirrored domain and region endpoint 1.9 onto physical tube [0,1].
+  - Use Fig. 10 qualitatively initially. Recover ATHENA trace/provenance later if feasible; do not build a
+    new reference solver as a prerequisite.
+  observables:
+  - profiles
+  - monotonicity
+  setup_status: requires-setup-reconciliation
+  reference_status: published-figures-qualitative-start
+  metric_status: definition-transcribed-not-implemented
+  acceptance_status: unscored
+  acceptance_criteria: null
+  boundary_realization:
+    method: reflected-initial-conditions-periodic
+    reflected_axes:
+    - x
+    domain_copies: 2
+    physical_measurement_domain: setup.domain; mirrored copies supply boundaries only
+  material_model: single-gamma-ideal-gas
+  comparison_mode: qualitative-initial
+  quantitative_upgrade: 'Optional: obtain an independent reference asset with provenance and implement its
+    measurement; no new reference solver required.'
+- id: section-4-4-1-gresho
+  section: 4.4.1
+  source_pdf_pages:
+  - 24
+  core_family: gresho
+  registry_case: gresho
+  binding: existing-builder-needs-reconciliation
+  priority: P0
+  dimension: 2
+  figure_targets:
+  - '12: azimuthal velocity at t=3 and 5'
+  setup:
+    domain:
+    - - -0.5
+      - 0.5
+    - - -0.5
+      - 0.5
+    boundaries: periodic
+    gamma: 1.6666666666666667
+    density: 1
+    fields: Eq. (98) triangular azimuthal velocity and balancing piecewise pressure; retain cusps at r=0.2,0.4.
+  published_sampling:
+    lattice:
+    - 64
+    - 64
+  comparison_times:
+  - 3
+  - 5
+  reference:
+    kind: analytic
+    locator: Eq. (98), steady vortex
+  measurement:
+    azimuthal-velocity: All-particle v_phi versus current radius and analytic profile; report scatter and peak.
+    angular-momentum: Supplementary drift diagnostic with periodic coordinates/center convention stated.
+  setup_gaps:
+  - Override default nx=200, run to t=5 and retain t=3 output.
+  - Verify coordinate center and unsmoothed cuspWidth=0; audit angular momentum under periodic wrapping.
+  observables:
+  - azimuthal-velocity
+  - angular-momentum
+  setup_status: requires-setup-reconciliation
+  reference_status: analytic-adapter-required
+  metric_status: definition-transcribed-not-implemented
+  acceptance_status: unscored
+  acceptance_criteria: null
+  material_model: single-gamma-ideal-gas
+  comparison_mode: quantitative-analytic-target
+- id: section-4-4-2-yee
+  section: 4.4.2
+  source_pdf_pages:
+  - 24
+  - 25
+  - 26
+  core_family: yee
+  registry_case: yee
+  binding: existing-builder-needs-reconciliation
+  priority: P0
+  dimension: 2
+  figure_targets:
+  - '13: point positions'
+  - '14: density and velocity profiles'
+  - '15: L1/L2/Linf convergence'
+  setup:
+    geometry: disk, radius=5, centered at (0,0)
+    gamma: 1.4
+    beta: 5
+    free_stream_velocity:
+    - 0
+    - 0
+    rho_infinity: 1
+    pressure_infinity: 1
+    boundaries: 10 non-dynamical outer radial rings fixed to Eq. (99)
+  published_sampling:
+    radial_ring_counts:
+    - 16
+    - 32
+    - 64
+    - 128
+    placement: Concentric rings with near-equal radial/azimuthal spacing; density-dependent ring masses.
+  comparison_times:
+  - 8
+  reference:
+    kind: analytic
+    locator: Eq. (99), steady isentropic vortex
+  measurement:
+    radial-profiles: 'All active particles: density and velocity versus radius.'
+    error-norms: L1/L2/Linf density and velocity; establish component/vector norm and particle weighting before
+      comparing Fig. 15.
+  setup_gaps:
+  - Confirm L=10 means diameter and maps to rmax=5; nr controls physical resolution, not nx.
+  - Exclude the fixed boundary rings from norms; verify ring mass prescription.
+  - Extract/verify norm definition and convergence fit rather than assuming a shared weighting.
+  observables:
+  - radial-profiles
+  - error-norms
+  setup_status: requires-setup-reconciliation
+  reference_status: analytic-adapter-required
+  metric_status: definition-transcribed-not-implemented
+  acceptance_status: unscored
+  acceptance_criteria: null
+  convergence:
+    expected_order: 2
+    resolution_axis: N_r
+    radial_ring_counts:
+    - 16
+    - 32
+    - 64
+    - 128
+  material_model: single-gamma-ideal-gas
+  comparison_mode: quantitative-analytic-target
+- id: section-4-4-3-kh
+  section: 4.4.3
+  source_pdf_pages:
+  - 26
+  - 27
+  - 28
+  core_family: kelvin-helmholtz
+  registry_case: kelvinHelmholtz
+  binding: existing-builder-needs-reconciliation
+  priority: P1
+  dimension: 2
+  figure_targets:
+  - '16: density snapshots'
+  - '17: mode amplitude and maximum transverse kinetic energy'
+  - '18: viscous pressure'
+  setup:
+    domain:
+    - - 0
+      - 1
+    - - 0
+      - 1
+    boundaries: periodic
+    gamma: 1.6666666666666667
+    pressure: 2.5
+    rho1: 1
+    rho2: 2
+    vx1: 0.5
+    vx2: -0.5
+    interface_width: 0.025
+    density_and_vx: Piecewise exponential ramps, Eq. (100), at y=1/4 and 3/4.
+    vy: 0.01*sin(4*pi*x), throughout the box; no Gaussian envelope
+  published_sampling:
+    lattices:
+    - - 256
+      - 256
+    - - 512
+      - 512
+    high_resolution_role: CRKSPH visual reference, not the independent Fig. 17 reference
+  comparison_times:
+  - 2
+  reference:
+    kind: independent-numerical
+    locator: McNally et al. [35] reference and Eqs. (10)-(13) of that paper
+  measurement:
+    mode-amplitude: Implement the McNally weighted Fourier measurement, including normalization and weights,
+      before comparison.
+    maximum-transverse-kinetic-energy: max_i(0.5*m_i*vy_i**2), not total transverse kinetic energy.
+    viscous-pressure: Average over particles of maximum pairwise viscous pressure; requires exported internal
+      quantity.
+  setup_gaps:
+  - Enable smoothDensity=1; override w0=0.1 to 0.01 and remove default Gaussian transverse envelope.
+  - Verify pressure=2.5 and Eq. (100) velocity/density ramps.
+  - Initial Fig. 16/17 comparison can be qualitative; acquire McNally series/measurement later for quantitative
+    errors. Sharp-interface growth is not exact truth for this setup.
+  observables:
+  - mode-amplitude
+  - maximum-transverse-kinetic-energy
+  - viscous-pressure
+  setup_status: requires-setup-reconciliation
+  reference_status: published-figures-qualitative-start
+  metric_status: definition-transcribed-not-implemented
+  acceptance_status: unscored
+  acceptance_criteria: null
+  material_model: single-gamma-ideal-gas
+  comparison_mode: qualitative-initial
+  quantitative_upgrade: 'Optional: obtain an independent reference asset with provenance and implement its
+    measurement; no new reference solver required.'
+- id: section-4-4-4-rt
+  section: 4.4.4
+  source_pdf_pages:
+  - 29
+  - 30
+  core_family: rayleigh-taylor
+  registry_case: rayleighTaylor
+  binding: existing-builder-needs-reconciliation
+  priority: P1
+  dimension: 2
+  figure_targets:
+  - '19: density at t=4; two CRKSPH resolutions'
+  setup:
+    domain:
+    - - 0
+      - 0.5
+    - - 0
+      - 1
+    boundaries: periodic x; 20 fixed equilibrium rows above and below y domain
+    gamma: 1.4
+    gravity:
+    - 0
+    - -0.5
+    rho_bottom: 1
+    rho_top: 2
+    interface_y: 0.5
+    density_width: 0.025
+    vy: 0.025*(1+cos(8*pi*(x+0.25)))*(1+cos(5*pi*(y-0.5))) for 0.3<=y<=0.7, otherwise zero
+    pressure: P=2/1.4 - 0.5*rho(y)*(y-0.5), Eq. (104); retain paper prescription explicitly.
+  published_sampling:
+    lattices:
+    - - 128
+      - 256
+    - - 512
+      - 1024
+  comparison_times:
+  - 4
+  reference:
+    kind: qualitative-published-comparison
+    locator: Fig. 19; no unique analytic nonlinear trajectory
+  measurement:
+    density-snapshots: Identically scaled density plots and interface morphology.
+    mixing-layer: 'Proposed extension: define composition/threshold-based height and reference uncertainty
+      before scoring.'
+  setup_gaps:
+  - Override perturbation delta=0.0025 default to paper amplitude 0.025; density width is a different 0.025
+    control.
+  - Audit nx/aspect mapping to physical [0,0.5]x[0,1] and fixed boundary rows.
+  - Eq. (104) is a prescribed pressure profile; check its discrete equilibrium rather than silently replacing
+    it with an integrated profile.
+  observables:
+  - density-snapshots
+  - mixing-layer
+  setup_status: requires-setup-reconciliation
+  reference_status: published-figures-qualitative-start
+  metric_status: definition-transcribed-not-implemented
+  acceptance_status: unscored
+  acceptance_criteria: null
+  material_model: single-gamma-ideal-gas
+  comparison_mode: qualitative-initial
+  quantitative_upgrade: 'Optional: obtain an independent reference asset with provenance and implement its
+    measurement; no new reference solver required.'
+- id: section-4-4-5-shearing-noh-vs1
+  section: 4.4.5
+  source_pdf_pages:
+  - 30
+  - 31
+  core_family: shearing-noh
+  registry_case: shearingNoh
+  binding: existing-builder-needs-reconciliation
+  priority: P1
+  dimension: 2
+  figure_targets:
+  - '20: profiles for shear amplitude 1'
+  setup:
+    domain:
+    - - 0
+      - 0.2
+    - - 0
+      - 1
+    boundaries: periodic x; reflecting y=0; audit upper-y boundary
+    gamma: 1.6666666666666667
+    density: 1
+    pressure: 0
+    vx: 1*cos(2*pi*y)
+    vy: -1
+    shear_amplitude: 1
+  published_sampling:
+    lattice:
+    - 20
+    - 100
+  comparison_times:
+  - 0.6
+  reference:
+    kind: analytic
+    locator: Planar Noh thermodynamic/shock solution; shear adds a symmetry/viscosity stress test.
+  measurement:
+    profiles: All particles rho, P, specific thermal energy versus y against planar Noh.
+    symmetry: Per-row scatter and shock position; keep separate from mean profile errors.
+  setup_gaps:
+  - Map existing mirrored domain and nx to physical 20x100 lattice.
+  - Verify vs means transverse shear amplitude; keep distinct from Noh shock speed 1/3.
+  - Check Eq. (105) and no seeded perturbation; do not treat reported high-shear error as an acceptance tolerance.
+  observables:
+  - profiles
+  - symmetry
+  setup_status: requires-setup-reconciliation
+  reference_status: analytic-adapter-required
+  metric_status: definition-transcribed-not-implemented
+  acceptance_status: unscored
+  acceptance_criteria: null
+  boundary_realization:
+    method: reflected-initial-conditions-periodic
+    reflected_axes:
+    - y
+    domain_copies: 2
+    physical_measurement_domain: setup.domain; mirrored copies supply boundaries only
+  material_model: single-gamma-ideal-gas
+  comparison_mode: quantitative-analytic-target
+- id: section-4-4-5-shearing-noh-vs5
+  section: 4.4.5
+  source_pdf_pages:
+  - 30
+  - 31
+  core_family: shearing-noh
+  registry_case: shearingNoh
+  binding: existing-builder-needs-reconciliation
+  priority: P1
+  dimension: 2
+  figure_targets:
+  - '20: profiles for shear amplitude 5'
+  setup:
+    domain:
+    - - 0
+      - 0.2
+    - - 0
+      - 1
+    boundaries: periodic x; reflecting y=0; audit upper-y boundary
+    gamma: 1.6666666666666667
+    density: 1
+    pressure: 0
+    vx: 5*cos(2*pi*y)
+    vy: -1
+    shear_amplitude: 5
+  published_sampling:
+    lattice:
+    - 20
+    - 100
+  comparison_times:
+  - 0.6
+  reference:
+    kind: analytic
+    locator: Planar Noh thermodynamic/shock solution; shear adds a symmetry/viscosity stress test.
+  measurement:
+    profiles: All particles rho, P, specific thermal energy versus y against planar Noh.
+    symmetry: Per-row scatter and shock position; keep separate from mean profile errors.
+  setup_gaps:
+  - Map existing mirrored domain and nx to physical 20x100 lattice.
+  - Verify vs means transverse shear amplitude; keep distinct from Noh shock speed 1/3.
+  - Check Eq. (105) and no seeded perturbation; do not treat reported high-shear error as an acceptance tolerance.
+  observables:
+  - profiles
+  - symmetry
+  setup_status: requires-setup-reconciliation
+  reference_status: analytic-adapter-required
+  metric_status: definition-transcribed-not-implemented
+  acceptance_status: unscored
+  acceptance_criteria: null
+  boundary_realization:
+    method: reflected-initial-conditions-periodic
+    reflected_axes:
+    - y
+    domain_copies: 2
+    physical_measurement_domain: setup.domain; mirrored copies supply boundaries only
+  material_model: single-gamma-ideal-gas
+  comparison_mode: quantitative-analytic-target
+- id: section-4-5-1-blob-2d
+  section: 4.5.1
+  source_pdf_pages:
+  - 31
+  - 32
+  - 33
+  - 34
+  core_family: blob-wind
+  registry_case: null
+  binding: proposed-reusable-core-builder
+  priority: P1
+  dimension: 2
+  domain:
+  - - 0
+    - 40
+  - - 0
+    - 10
+  cloud_center:
+  - 5
+  - 5
+  wind_direction: positive-x
+  published_ambient_lattice:
+  - 512
+  - 128
+  snapshot_times_in_tau_KH:
+  - 1
+  - 4
+  - 8
+  figure_targets:
+  - '21: density snapshots'
+  - '23: 2D cloud mass fraction'
+  observables:
+  - cloud-mass-fraction
+  - density-snapshots
+  - conservation
+  setup_status: requires-shared-blob-initializer
+  reference_status: published-figures-qualitative-start
+  metric_status: definition-transcribed-not-implemented
+  acceptance_status: unscored
+  acceptance_criteria: null
+  setup_group: blob
+  setup_gaps:
+  - No registered reusable blob-wind builder yet; implement clipped ambient/cloud lattices with equal masses.
+  - Resolve lattice clipping, interface perturbations and initial cloud mass normalization.
+  - Do not score late-time morphology as a unique exact trajectory; extract Fig. 23 series with uncertainty.
+  reference:
+    kind: cross-method-published-comparison
+    locator: Figs. 21-23; Section 4.5.1 caveat on uncontrolled interface perturbations.
+  measurement:
+    locator: Section 4.5.1 PDF page 33; Fig. 23 on page 34
+    cloud_mass_criterion:
+      density: rho > 0.64 * initial_cloud_density
+      temperature: T < 0.9 * initial_ambient_temperature
+      population: all gas particles satisfying both criteria; not initial cloud IDs only
+    normalization: retained mass / initial cloud mass
+    time_coordinate: t / tau_KH
+    interpretation: Cross-method published comparison; late nonlinear evolution depends on interface perturbations.
+  published_sampling:
+    ambient_lattice:
+    - 512
+    - 128
+    equal_mass: true
+  material_model: single-gamma-ideal-gas
+  comparison_mode: qualitative-initial
+  quantitative_upgrade: 'Optional: obtain an independent reference asset with provenance and implement its
+    measurement; no new reference solver required.'
+- id: section-4-5-1-blob-3d
+  section: 4.5.1
+  source_pdf_pages:
+  - 33
+  - 34
+  core_family: blob-wind
+  registry_case: null
+  binding: proposed-reusable-core-builder
+  priority: P2
+  dimension: 3
+  domain:
+  - - 0
+    - 10
+  - - 0
+    - 10
+  - - 0
+    - 40
+  cloud_center:
+  - 5
+  - 5
+  - 5
+  wind_direction: positive-z
+  published_ambient_lattice:
+  - 128
+  - 128
+  - 512
+  snapshot_times_in_tau_KH:
+  - 0.25
+  - 1
+  - 1.75
+  - 4
+  slice: x = 5
+  figure_targets:
+  - '22: density slices'
+  - '23: 3D cloud mass fraction'
+  observables:
+  - cloud-mass-fraction
+  - density-slice
+  - conservation
+  setup_status: requires-shared-blob-initializer-and-3d-sampling
+  reference_status: published-figures-qualitative-start
+  metric_status: definition-transcribed-not-implemented
+  acceptance_status: unscored
+  acceptance_criteria: null
+  setup_group: blob
+  setup_gaps:
+  - No registered reusable blob-wind builder yet; implement clipped ambient/cloud lattices with equal masses.
+  - Resolve lattice clipping, interface perturbations and initial cloud mass normalization.
+  - Do not score late-time morphology as a unique exact trajectory; extract Fig. 23 series with uncertainty.
+  reference:
+    kind: cross-method-published-comparison
+    locator: Figs. 21-23; Section 4.5.1 caveat on uncontrolled interface perturbations.
+  measurement:
+    locator: Section 4.5.1 PDF page 33; Fig. 23 on page 34
+    cloud_mass_criterion:
+      density: rho > 0.64 * initial_cloud_density
+      temperature: T < 0.9 * initial_ambient_temperature
+      population: all gas particles satisfying both criteria; not initial cloud IDs only
+    normalization: retained mass / initial cloud mass
+    time_coordinate: t / tau_KH
+    interpretation: Cross-method published comparison; late nonlinear evolution depends on interface perturbations.
+  published_sampling:
+    ambient_lattice:
+    - 128
+    - 128
+    - 512
+    equal_mass: true
+  material_model: single-gamma-ideal-gas
+  comparison_mode: qualitative-initial
+  quantitative_upgrade: 'Optional: obtain an independent reference asset with provenance and implement its
+    measurement; no new reference solver required.'
+- id: section-4-5-2-triple-point
+  section: 4.5.2
+  source_pdf_pages:
+  - 34
+  - 35
+  - 36
+  core_family: triple-point
+  registry_case: triplePoint
+  binding: existing-family-capability-gated
+  priority: P2
+  dimension: 2
+  figure_targets:
+  - '24: IC regions'
+  - '25: time sequence'
+  - '26: density at t=5'
+  - '27: density at t=7'
+  setup:
+    domain:
+    - - 0
+      - 7
+    - - 0
+      - 3
+    boundaries: reflecting
+    initial_velocity:
+    - 0
+    - 0
+    regions:
+      I:
+        bounds:
+        - - 0
+          - 1
+        - - 0
+          - 3
+        rho: 1
+        pressure: 1
+        gamma: 1.5
+      II:
+        bounds:
+        - - 1
+          - 7
+        - - 1.5
+          - 3
+        rho: 0.125
+        pressure: 0.1
+        gamma: 1.5
+      III:
+        bounds:
+        - - 1
+          - 7
+        - - 0
+          - 1.5
+        rho: 1
+        pressure: 0.1
+        gamma: 1.4
+  published_sampling:
+    I:
+    - 160
+    - 480
+    II:
+    - 320
+    - 80
+    III:
+    - 960
+    - 240
+  comparison_times:
+  - 5
+  - 7
+  reference:
+    kind: cross-method-published-comparison
+    locator: ReALE comparison, Figs. 26-27; interface perturbations not standardized.
+  measurement:
+    density-snapshots: Log-density images and shock topology, with stated color scale and spatial alignment.
+    shock-geometry: Potential quantitative extension once an independent field/reference with uncertainty is
+      acquired.
+  setup_gaps:
+  - 'Capability gate: paper has gamma=1.5 in I/II and 1.4 in III; existing single-gamma=1.4 setup is a different
+    study.'
+  - Verify per-material EOS is supported through the entire solver before selecting the exact paper study.
+  - Use four reflected IC copies with periodic outer bounds. Verify physical [0,7]x[0,3] extraction, EOS IDs
+    and three regional lattice counts.
+  - Do not call a uniform-gamma demonstration a faithful reproduction or use visual mixing differences as scalar
+    acceptance.
+  observables:
+  - density-snapshots
+  - shock-geometry
+  setup_status: requires-per-material-gamma-capability-audit
+  reference_status: published-figures-qualitative-start
+  metric_status: definition-transcribed-not-implemented
+  acceptance_status: unscored
+  acceptance_criteria: null
+  boundary_realization:
+    method: reflected-initial-conditions-periodic
+    reflected_axes:
+    - x
+    - y
+    domain_copies: 4
+    physical_measurement_domain: setup.domain; mirrored copies supply boundaries only
+  material_model: per-material-ideal-gas-gamma
+  comparison_mode: qualitative-initial
+  quantitative_upgrade: 'Optional: obtain an independent reference asset with provenance and implement its
+    measurement; no new reference solver required.'
+  material_requirement:
+    eos_count: 2
+    gamma_by_region:
+      I: 1.5
+      II: 1.5
+      III: 1.4
+    minimal_extension: Advected particle material ID selects a fixed EOS parameter set; three origin-region
+      labels can remain distinct.
+    species_fractions_or_reactions_required: false
+comparison_policy:
+  initial_qualitative_allowed: true
+  when: No good available reference, or obtaining one would require a new solver.
+  requirements:
+  - Keep exact physical setup and numerical realization documented.
+  - Compare published figures at matched times, slices, coordinates and color scales.
+  - Record visual agreement separately from numerical reference-error acceptance.
+  - Use available scalar diagnostics without treating them as validated against absent reference data.
+  reference_solver_development_required: false
+  quantitative_upgrade: Add trusted data and a measurement operator when feasible; do not block initial qualitative
+    comparison.

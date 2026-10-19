@@ -1,0 +1,20 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: gresho
+family: compressible
+title: Gresho-Chan vortex
+status: stub
+description: ''
+cases:
+- gresho
+solvers:
+- compressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from:
+- compressible/09-gresho-chan-vortex.ipynb
+- compressible/09-gresho-chan-vortex.py

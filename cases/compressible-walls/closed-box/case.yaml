@@ -1,0 +1,19 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: closed-box
+family: compressible-walls
+title: Closed box
+status: stub
+description: ''
+cases:
+- closedBox
+solvers:
+- compressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from:
+- compressibleWalls/01-closedBox.py

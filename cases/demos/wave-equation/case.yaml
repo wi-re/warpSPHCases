@@ -1,0 +1,20 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: wave-equation
+family: demos
+title: Scalar wave equation
+status: stub
+description: ''
+cases:
+- waveEquation
+solvers:
+- wave-equation
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from:
+- wave/jfnk_solver_exploration.ipynb
+- wave/waveCase_implicit_vs_explicit.ipynb

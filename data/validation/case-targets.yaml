@@ -1,0 +1,364 @@
+- family: sod
+  priority: P0
+  reference_strategy: Exact Riemann solution
+  primary_metrics: density/velocity/pressure L1,L2; shock/contact positions
+  exact_setup_requirements: 1D versus 2D/3D slab; gamma and both states; smoothing; equal mass/spacing; compare
+    before periodic interactions
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: linear-wave
+  priority: P0
+  reference_strategy: Small-amplitude travelling-wave solution
+  primary_metrics: phase/amplitude; density L1,L2; observed order
+  exact_setup_requirements: gamma; amplitude; wavelength; sound speed; crossings; particle relaxation; linearisation
+    validity
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: kidder
+  priority: P1
+  reference_strategy: Kidder isentropic compression
+  primary_metrics: entropy error; density/velocity norms; boundary work
+  exact_setup_requirements: planar/cylindrical/spherical geometry; driven bands; compression time; EOS
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: noh
+  priority: P1
+  reference_strategy: Noh similarity solution
+  primary_metrics: shock radius; post-shock density; wall-heating integral
+  exact_setup_requirements: dimension; radial geometry; incoming velocity; cold pressure floor; treatment of origin
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: shearing-noh
+  priority: P2
+  reference_strategy: Published shearing-shock comparison
+  primary_metrics: shock location; transverse velocity; energy budget
+  exact_setup_requirements: shear profile and amplitude; incoming state; boundaries; dimension
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: woodward-colella
+  priority: P1
+  reference_strategy: Independent converged Euler solution
+  primary_metrics: density L1; shock/contact locations
+  exact_setup_requirements: three pressures; gamma; reflecting versus mirrored boundaries; end time
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: sedov
+  priority: P1
+  reference_strategy: Sedov similarity solution
+  primary_metrics: shock radius; radial profiles; symmetry; energy
+  exact_setup_requirements: dimension; energy deposition radius and kernel; ambient pressure; stop radius; radial
+    sampling
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: hydrostatic
+  priority: P1
+  reference_strategy: Stationary pressure-equilibrium density contact
+  primary_metrics: spurious velocity/acceleration; interface distortion; pressure drift
+  exact_setup_requirements: This is a density square without gravity; density ratio; constant pressure; advection;
+    interface smoothing
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: gresho
+  priority: P1
+  reference_strategy: Stationary Gresho profile
+  primary_metrics: azimuthal-velocity L1; radial velocity; angular momentum
+  exact_setup_requirements: Mach/background pressure; centre; piecewise radii; boost; lattice/glass start
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: yee
+  priority: P1
+  reference_strategy: Smooth isentropic vortex
+  primary_metrics: field L1,L2; phase/advection error; observed order
+  exact_setup_requirements: vortex strength; free-stream boost; periodic domain; exact passage time
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: shear-box
+  priority: P1
+  reference_strategy: Steady inviscid sinusoidal shear
+  primary_metrics: mode decay; artificial dissipation; transverse velocity
+  exact_setup_requirements: physical viscosity zero; wave number; pressure and Mach; shear amplitude
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: kelvin-helmholtz
+  priority: P1
+  reference_strategy: Setup-specific mode-growth/reference solution
+  primary_metrics: mode amplitude; mixing width; density/vorticity maps
+  exact_setup_requirements: sharp/smooth profiles; explicit diffusion; density ratio; perturbation and seed; dimensionality;
+    nonlinear validity interval
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: rayleigh-taylor
+  priority: P2
+  reference_strategy: Setup-specific independent numerical reference
+  primary_metrics: bubble/spike height; mixing width; energy
+  exact_setup_requirements: stratification; Atwood number; gravity; perturbation; EOS; viscous/diffusive model;
+    boundaries
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: triple-point
+  priority: P2
+  reference_strategy: Independent high-order Euler reference
+  primary_metrics: interface/shock locations; density profiles; conservation
+  exact_setup_requirements: three regions; equal mass/spacing; material EOS; domain and boundaries; end time
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: closed-box
+  priority: P1
+  reference_strategy: Uniform stationary gas
+  primary_metrics: maximum velocity; pressure/density drift; conservation
+  exact_setup_requirements: wall representation and closure; EOS; corner layout; dimension
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: piston
+  priority: P2
+  reference_strategy: Rankine-Hugoniot piston shock
+  primary_metrics: shock speed; post-shock pressure/density; wall work
+  exact_setup_requirements: piston motion; upstream state; EOS; wall trajectory; time before reflected waves
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: shock-reflection
+  priority: P2
+  reference_strategy: Wall Riemann/reflected shock solution
+  primary_metrics: shock speed and state; wall pressure
+  exact_setup_requirements: incoming Mach/state; wall position; normal versus oblique reflection
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: woodward-colella-walls
+  priority: P2
+  reference_strategy: Independent converged blast interaction
+  primary_metrics: density L1; wave positions; wall load
+  exact_setup_requirements: actual walls versus mirrored periodic original; same ICs and time
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: sedov-walls
+  priority: P2
+  reference_strategy: Similarity solution only before wall contact; later numerical reference
+  primary_metrics: pre-contact radial error; reflected wave positions; conservation
+  exact_setup_requirements: deposition and dimension; wall geometry; distinct pre/post-reflection reference intervals
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: shock-cylinder
+  priority: P2
+  reference_strategy: Geometry-specific independent shock/body solution
+  primary_metrics: shock geometry; surface pressure/load
+  exact_setup_requirements: Mach; fixed/moving body; radius; domain; boundary closure; time window
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: bow-shock
+  priority: P2
+  reference_strategy: Geometry-specific independent compressible reference
+  primary_metrics: stand-off distance; pressure profile; drag
+  exact_setup_requirements: moving cylinder versus inflow equivalence; Mach; blockage; radius; BCs
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: forward-step
+  priority: P2
+  reference_strategy: Woodward-Colella Mach-3 step reference
+  primary_metrics: shock positions; contours; pressure profiles
+  exact_setup_requirements: step geometry; inflow and outflow; corner treatment; EOS; end time
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: dam-break
+  priority: P1
+  reference_strategy: Named experiment per geometry; Lobovsky/MARIN/Marrone separately
+  primary_metrics: front/run-up; pressure impulse and arrival; uncertainty-normalized error
+  exact_setup_requirements: 2D/3D; tank width; fill height; gate motion; sensor area/filter; dry/wet bed; obstacle
+    geometry
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: sloshing-tank
+  priority: P1
+  reference_strategy: SPHERIC TC10 lateral water measurements
+  primary_metrics: pressure impulse/peak/time; repeatability; surface height
+  exact_setup_requirements: water/oil; lateral/roof; roll record and origin; sensor support; identical smoothing;
+    2D approximation versus finite width
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: oscillating-droplet
+  priority: P1
+  reference_strategy: Central-force drop ODE
+  primary_metrics: semi-axes; period; energy/volume drift
+  exact_setup_requirements: central force strength; strain; initial pressure; single/multiphase; radius; distinguish
+    unforced expanding drop
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: rotating-square-patch
+  priority: P1
+  reference_strategy: Published BEM/reference evolution
+  primary_metrics: surface geometry; pressure probes; angular momentum
+  exact_setup_requirements: initial rotation and pressure; free surface; shape; finite comparison times
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: impact
+  priority: P1
+  reference_strategy: Named rectangular-jet analytic/numerical reference
+  primary_metrics: kinetic-energy loss; impulse; pressure; shape
+  exact_setup_requirements: spheres versus rectangles; equal/unequal masses; normal/oblique motion; Mach; exact
+    time zero
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: column-collapse
+  priority: P2
+  reference_strategy: Named column-collapse experiment
+  primary_metrics: front and height; energy; pressure
+  exact_setup_requirements: Koshizuka-style setup versus generic dam break; column aspect ratio; no prescribed tank
+    excitation
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: taylor-green-vortex
+  priority: P0
+  reference_strategy: Classical incompressible exact field; separate WC approximation
+  primary_metrics: velocity L2; kinetic energy; pressure; effective viscosity
+  exact_setup_requirements: dimension; domain/wavenumber convention; viscosity; initial pressure/density; Mach;
+    lattice/jitter; exact WC target separate
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: kolmogorov-flow
+  priority: P2
+  reference_strategy: Laminar forced-shear solution below instability; numerical reference otherwise
+  primary_metrics: forcing/mode balance; energy/enstrophy; spectrum
+  exact_setup_requirements: force amplitude/wavenumber; viscosity; noise and seed; stable versus unstable regime
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: random-flow
+  priority: P2
+  reference_strategy: Specified deterministic IC and independent numerical/statistical reference
+  primary_metrics: energy/enstrophy; spectra; divergence; long-time statistics
+  exact_setup_requirements: exact generator and seed; periodic/bounded; viscosity; spectrum and normalization; avoid
+    trajectory identity after decorrelation
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: shear-wave
+  priority: P0
+  reference_strategy: Analytic viscous sinusoidal decay
+  primary_metrics: mode decay; velocity L2; inferred viscosity
+  exact_setup_requirements: wave number; viscosity; amplitude; periodic domain; phase
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: static-blob
+  priority: P1
+  reference_strategy: Rest-state null solution
+  primary_metrics: spurious velocity/acceleration; density drift
+  exact_setup_requirements: density and free-surface definition; pressure/gauge; periodic domain; not wind-cloud
+    disruption
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: lid-driven-cavity
+  priority: P1
+  reference_strategy: Ghia tables; SPHERIC TC3
+  primary_metrics: centreline u/v; vortex centres; steady residual
+  exact_setup_requirements: Re; no-slip walls; lid/corner treatment; transient ramp; steady-state criterion
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: moving-obstacle
+  priority: P2
+  reference_strategy: Named rotating-body experiment/numerical reference
+  primary_metrics: drag/lift; circulation; wake and torque
+  exact_setup_requirements: body shape; rotation rate; mean-flow forcing; confinement; no-slip model
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: driven-square
+  priority: P1
+  reference_strategy: SPHERIC TC6 only after prescribed-motion matching
+  primary_metrics: pressure/viscous drag; vorticity; body work
+  exact_setup_requirements: current sinusoidal motion differs from TC6 acceleration-to-translation record; tank
+    dimensions; no-slip; Reynolds number
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: open-flow
+  priority: P2
+  reference_strategy: Named channel/obstacle reference
+  primary_metrics: mass flux; drag; inlet/outlet reflection
+  exact_setup_requirements: prescribed-velocity band versus true inlet/outlet; geometry; viscosity; blockage
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: periodic-channel
+  priority: P0
+  reference_strategy: Steady and startup Poiseuille solution
+  primary_metrics: velocity L2; wall shear/load; flux
+  exact_setup_requirements: force convention; physical/effective viscosity; wall offset; startup versus steady;
+    channel width
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: stokes-array
+  priority: P1
+  reference_strategy: Published periodic-cylinder-array reference
+  primary_metrics: permeability/drag; pressure/viscous force; force balance
+  exact_setup_requirements: solid fraction; superficial versus fluid mean velocity; Reynolds limit; lattice; square
+    versus circular obstacle
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: taylor-couette
+  priority: P1
+  reference_strategy: Laminar annular analytic velocity and torque
+  primary_metrics: azimuthal velocity L2; torque; radial leakage
+  exact_setup_requirements: radii; angular velocities; low-Re regime; full stress versus implemented viscous traction
+    convention
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: cylinder-wake
+  priority: P1
+  reference_strategy: Geometry-specific wake reference; DFG as separate target
+  primary_metrics: drag/lift; Strouhal; pressure difference; recirculation
+  exact_setup_requirements: periodic pinned frame is different from DFG parabolic inlet/no-slip channel/outflow;
+    body shape; blockage; startup
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: hydrostatic-column
+  priority: P1
+  reference_strategy: Hydrostatic pressure and rest-state solution
+  primary_metrics: pressure-depth norm; spurious motion; force balance
+  exact_setup_requirements: gravity; free surface; wall geometry; gauge; initialization; rigid versus elastic base
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result
+- family: wave-equation
+  priority: P2
+  reference_strategy: Analytic/manufactured scalar wave
+  primary_metrics: amplitude/phase; propagation speed; energy; order
+  exact_setup_requirements: scalar PDE; source; absorbing/reflecting BCs; explicit/implicit timestep; distinguish
+    fluid acoustic wave
+  trajectory_policy: one accepted canonical trajectory per exact benchmark initially; other solvers runnable; comparisons
+    selected
+  status: target-definition; not a validation result

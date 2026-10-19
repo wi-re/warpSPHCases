@@ -1,0 +1,19 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: hydrostatic-column
+family: boundaries
+title: Hydrostatic column
+status: stub
+description: ''
+cases:
+- hydrostaticColumn
+solvers:
+- incompressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from:
+- incompressible/hydrostatic-column-troubleshooting.ipynb

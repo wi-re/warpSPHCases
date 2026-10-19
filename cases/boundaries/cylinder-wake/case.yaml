@@ -1,0 +1,18 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: cylinder-wake
+family: boundaries
+title: Flow past a cylinder (wake)
+status: stub
+description: ''
+cases:
+- cylinderWake
+solvers:
+- weakly-compressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from: []

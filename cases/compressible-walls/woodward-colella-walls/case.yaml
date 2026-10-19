@@ -1,0 +1,19 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: woodward-colella-walls
+family: compressible-walls
+title: Woodward-Colella between walls
+status: stub
+description: ''
+cases:
+- woodwardColellaWalls
+solvers:
+- compressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from:
+- compressibleWalls/04-woodwardColellaWalls.py

@@ -1,0 +1,18 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: stokes-array
+family: boundaries
+title: Stokes flow through a periodic array
+status: stub
+description: ''
+cases:
+- stokesArray
+solvers:
+- weakly-compressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from: []

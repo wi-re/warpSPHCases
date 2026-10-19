@@ -1,0 +1,64 @@
+# Retained research directions; not active validation or release gates.
+- id: keplerian-disc
+  family: keplerian-disc
+  priority: later
+  gap: external-potential-and-orbital-protocol
+  reference: hopkins2015
+  target: Pressure/rotation-supported disc or ring under specified central gravity.
+  metrics: Orbital angular momentum, radial drift and heating over many orbits.
+  prerequisite: Potential and long-time integration audit; separate fixed-potential test from self-gravity.
+  scope: long-term
+- id: capillary-drop
+  family: capillary-drop
+  priority: later
+  gap: physical-model-and-reference-audit
+  reference: jeske2023
+  target: Laplace pressure and surface-tension-driven oscillation with specified viscosity.
+  metrics: Pressure jump, spurious currents, mode frequency and damping.
+  prerequisite: Audit surface-tension model; central-force droplet is not a surface-tension benchmark.
+  scope: long-term
+- id: rising-bubble
+  family: rising-bubble
+  priority: later
+  gap: multiphase-model-and-benchmark-audit
+  reference: hu2007
+  target: Named two-phase buoyant bubble benchmark.
+  metrics: Centre of mass, rise velocity and shape.
+  prerequisite: Select primary benchmark and reference dataset; verify EOS/interface/viscosity and surface-tension support.
+  scope: long-term
+- id: thermal-diffusion
+  family: thermal-diffusion
+  priority: later
+  gap: scalar-physics-and-validation-harness
+  reference: cleary1999
+  target: Analytic slab conduction and diffusivity discontinuity.
+  metrics: Temperature norms, heat flux and convergence.
+  prerequisite: Keep separate from scalar wave equation; audit supported thermal model.
+  scope: long-term
+- id: solid-and-elastic-fsi
+  family: future-physics
+  priority: later
+  scope: long-term
+  gap: additional-physical-models
+  reference: spheric-index
+  target: Solid/elastic fluid-structure benchmarks after the corresponding model work.
+  metrics: Study-specific structure and fluid observables.
+  prerequisite: Separate solver capability project; not an active validation requirement.
+- id: landslide-and-tsunami
+  family: future-physics
+  priority: later
+  scope: long-term
+  gap: additional-coupling-and-models
+  reference: spheric-index
+  target: Landslide and related coupled wave-generation benchmarks.
+  metrics: Study-specific motion and wave measurements.
+  prerequisite: Separate capability project before selecting exact paper studies.
+- id: heaving-and-floating-bodies
+  family: future-physics
+  priority: later
+  scope: long-term
+  gap: additional-coupling-audit
+  reference: spheric-index
+  target: Heaving/floating-body response benchmarks.
+  metrics: Study-specific body response and fluid loads.
+  prerequisite: Defer from current-fluid validation; evaluate the required coupling first.

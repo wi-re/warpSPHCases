@@ -1,0 +1,20 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: noh
+family: compressible
+title: Noh implosion
+status: stub
+description: ''
+cases:
+- noh
+solvers:
+- compressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from:
+- compressible/04-noh-implosion.ipynb
+- compressible/04-noh-implosion.py

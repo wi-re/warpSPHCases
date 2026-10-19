@@ -1,0 +1,18 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: static-blob
+family: periodic
+title: Static blob (null test)
+status: stub
+description: ''
+cases:
+- staticBlob
+solvers:
+- incompressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from: []

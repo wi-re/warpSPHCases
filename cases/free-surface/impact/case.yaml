@@ -1,0 +1,22 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: impact
+family: free-surface
+title: Impact of fluid bodies
+status: stub
+description: ''
+cases:
+- impact
+solvers:
+- weakly-compressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from:
+- weaklyCompressible/01-impact/impact_spheres.ipynb
+- weaklyCompressible/01-impact/impact_squares.ipynb
+- weaklyCompressible/01-impact/impact_spheres.py
+- weaklyCompressible/01-impact/impact_squares.py

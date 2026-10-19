@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "warpSPHCases case.yaml (draft; frozen at gate G1)",
+  "type": "object",
+  "required": ["slug", "family", "title", "status", "cases", "solvers"],
+  "properties": {
+    "slug": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"},
+    "family": {"enum": ["compressible", "compressible-walls", "free-surface", "periodic", "wall-bounded", "boundaries", "demos"]},
+    "title": {"type": "string"},
+    "status": {"enum": ["stub", "drafted", "generated", "reviewed", "published"]},
+    "description": {"type": "string"},
+    "cases": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "solvers": {"type": "array", "items": {"enum": ["compressible", "weakly-compressible", "incompressible", "wave-equation"]}},
+    "walls": {"enum": [null, "particle", "analytic", "both"]},
+    "origin": {"type": "object"},
+    "runs": {"type": "array"},
+    "media": {"type": "object", "properties": {"youtube": {"type": ["string", "null"]}}},
+    "notebook": {"type": ["string", "null"]},
+    "migrated_from": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

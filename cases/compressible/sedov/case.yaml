@@ -1,0 +1,24 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: sedov
+family: compressible
+title: Sedov-Taylor blast wave
+status: stub
+description: ''
+cases:
+- sedov
+solvers:
+- compressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from:
+- compressible/06-sedov/sedov_1d.ipynb
+- compressible/06-sedov/sedov_2d.ipynb
+- compressible/06-sedov/sedov_3d.ipynb
+- compressible/06-sedov/sedov_1d.py
+- compressible/06-sedov/sedov_2d.py
+- compressible/06-sedov/sedov_3d.py

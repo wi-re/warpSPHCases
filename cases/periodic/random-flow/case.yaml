@@ -1,0 +1,26 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: random-flow
+family: periodic
+title: Decaying random flow
+status: stub
+description: ''
+cases:
+- randomFlow
+- randomFlowIncompressible
+solvers:
+- weakly-compressible
+- incompressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from:
+- weaklyCompressible/06-randomFlow/randomFlow_bounded.ipynb
+- weaklyCompressible/06-randomFlow/randomFlow_periodic.ipynb
+- weaklyCompressible/06-randomFlow/randomFlow_bounded.py
+- weaklyCompressible/06-randomFlow/randomFlow_periodic.py
+- incompressible/periodic-random-flow.ipynb
+- incompressible/periodic-random-flow.py

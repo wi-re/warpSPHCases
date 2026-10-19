@@ -1,0 +1,18 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: column-collapse
+family: free-surface
+title: Water-column collapse
+status: stub
+description: ''
+cases:
+- columnCollapse
+solvers:
+- incompressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from: []

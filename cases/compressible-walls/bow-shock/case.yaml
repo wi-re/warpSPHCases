@@ -1,0 +1,19 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: bow-shock
+family: compressible-walls
+title: Bow shock
+status: stub
+description: ''
+cases:
+- bowShock
+solvers:
+- compressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from:
+- compressibleWalls/07-bowShock.py

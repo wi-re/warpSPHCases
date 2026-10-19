@@ -1,0 +1,117 @@
+slug: taylor-green-vortex
+family: periodic
+title: Taylor-Green vortex
+status: drafted
+description: >-
+  A periodic grid of counter-rotating vortices that decays under viscosity without changing shape: an exact
+  solution of the Navier-Stokes equations, and the one flow where the dissipation of an SPH scheme can be measured.
+cases:
+- tgv-wc
+- tgv
+solvers:
+- weakly-compressible
+- incompressible
+walls: null
+schemes:
+- deltaSPH
+- sun2017DeltaSPH
+- artificialCompressible
+- divergenceFree
+- omniIncompressible
+reference:
+  kind: tgv
+
+# Weakly compressible schemes run `tgv-wc`, incompressible ones `tgv` (both default nu = 0.01, t_end = 2, box 2 pi).
+runs:
+- case: tgv-wc
+  schemes: [deltaSPH, sun2017DeltaSPH, artificialCompressible]
+  nx: 128
+  golden: true
+  spec: {exportInterval: 0.05}
+- case: tgv
+  schemes: [divergenceFree, omniIncompressible]
+  nx: 128
+  golden: true
+  spec: {exportInterval: 0.05}
+# Convergence sweep (video OFF, many runs; the nx 128 runs carry the video).
+- case: tgv-wc
+  schemes: [deltaSPH, sun2017DeltaSPH, artificialCompressible]
+  nx: [32, 64, 256]
+  video: false
+  spec: {exportInterval: 0.5}
+- case: tgv
+  schemes: [divergenceFree, omniIncompressible]
+  nx: [32, 64, 256]
+  video: false
+  spec: {exportInterval: 0.5}
+
+origin:
+  references:
+  - taylor1937
+  - marrone2011
+  - sun2017
+  - sun2019
+  - decourcy2024
+  - winchenbach2024pmac
+
+figures:
+- id: hero
+  kind: loop2d
+  run: deltaSPH__default__nx128
+  alt: Looping animation of the Taylor-Green vortex speed field and its kinetic-energy decay.
+- id: energy
+  kind: series
+  select: {nx: 128}
+  caption: >-
+    Kinetic energy against the exact decay (left, logarithmic axis) and its relative deviation from the exact value
+    (right), for every scheme at nx 128.
+  alt: Kinetic energy decay of every scheme compared with the exact exponential decay.
+- id: maps
+  kind: field_grid
+  select: {nx: 128}
+  limit: 0.1
+  caption: >-
+    Signed speed error of each particle at the end time, in units of the exact amplitude, on one colour scale for all
+    schemes (saturating at 10 %). Blue: slower than exact, red: faster. Particle positions are wrapped into the box.
+  alt: Maps of the speed error per scheme at the end time.
+- id: density
+  kind: diagnostics
+  select: {nx: 128}
+  quantity: densityStd
+  yscale: log
+  ylabel: standard deviation of the particle density
+  caption: >-
+    Spread of the particle density over time. The flow is incompressible, so any spread is a volume error of the
+    discretisation.
+  alt: Density spread over time per scheme.
+
+- id: convergence
+  kind: convergence
+  select: {}
+  metric: L2 v
+  xlabel: resolution nx (particles per direction)
+  ylabel: relative L2 velocity error at the end time
+  caption: >-
+    Velocity error against resolution; the legend gives the observed order up to the resolution where the error
+    stops decreasing.
+  alt: Convergence of the velocity error with resolution.
+
+tables:
+- id: comparison
+  kind: errors
+  select: {nx: 128}
+- id: orders
+  kind: orders
+  metrics: [L2 v]
+  select: {}
+
+site:
+  importance: 1
+  img: hero
+
+migrated_from:
+- weaklyCompressible/05-taylor-green-vortex.ipynb
+- weaklyCompressible/05-taylor-green-vortex.py
+- incompressible/01-taylor-green-vortex.ipynb
+- incompressible/01-taylor-green-vortex.py
+- sweeps/tgv_nu.yaml

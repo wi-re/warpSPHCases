@@ -1,0 +1,18 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: periodic-channel
+family: boundaries
+title: Periodic channel (Poiseuille)
+status: stub
+description: ''
+cases:
+- periodicChannel
+solvers:
+- weakly-compressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from: []

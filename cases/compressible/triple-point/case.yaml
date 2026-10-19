@@ -1,0 +1,22 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: triple-point
+family: compressible
+title: Triple point
+status: stub
+description: ''
+cases:
+- triplePoint
+solvers:
+- compressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from:
+- compressible/14-triplePoint/triplePoint_equalMass.ipynb
+- compressible/14-triplePoint/triplePoint_equalSpacing.ipynb
+- compressible/14-triplePoint/triplePoint_equalMass.py
+- compressible/14-triplePoint/triplePoint_equalSpacing.py

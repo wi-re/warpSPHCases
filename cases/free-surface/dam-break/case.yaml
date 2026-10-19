@@ -1,0 +1,23 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: dam-break
+family: free-surface
+title: Dam break
+status: stub
+description: ''
+cases:
+- dambreak
+solvers:
+- weakly-compressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from:
+- weaklyCompressible/12-dambreak.ipynb
+- weaklyCompressible/12-dambreak.py
+- sweeps/dambreak_obstacle.yaml
+- sweeps/marrone34_rounded_corner.yaml
+- sweeps/marrone34_sharp_edge.yaml

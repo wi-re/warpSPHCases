@@ -1,0 +1,28 @@
+# Names paraphrased from the numbered SPHERIC index read on 2026-10-19.
+# Assessments are our comparison with the registry, not SPHERIC's claims.
+# No row claims an exact match. Individual definitions were inspected for
+# 1, 2, 3, 6, 8, 10, 16, 22 and 23; the other rows are index-level scope checks.
+- [1, Central-force drop, oscillating-droplet, related factory; exact parameters need matching]
+- [2, Three-dimensional dam break, dam-break, named 3D experiment and data adapter needed]
+- [3, Driven cavity, lid-driven-cavity, related factory; match Reynolds and measurement protocol]
+- [4, Rippled-bed flow, none, no named preset; geometry and reference work]
+- [5, Wet-bottom dam break, dam-break, distinct wet-bed experiment needed]
+- [6, Translating square, driven-square, different prescribed motion from current factory]
+- [7, Landslide impulse wave, none, no named preset; additional coupling and geometry audit]
+- [8, Gresho vortex, gresho, related factory; match pressure profile and sampling]
+- [9, Tuned liquid damping, sloshing-tank, distinct coupled damping system; no exact claim]
+- [10, Sloshing impact, sloshing-tank, lateral-water adapter exists; other experiments remain distinct]
+- [11, Rigid-slide tsunami, none, no named preset; additional coupling and geometry audit]
+- [12, Wave and floating body, none, no named preset; wave and body-motion audit]
+- [13, Perforated breakwater, none, no named preset; wave boundary and geometry audit]
+- [14, Free-heave body, none, no named preset; 3D body/fluid coupling audit]
+- [15, Iceberg tsunami, none, no named preset; additional coupling and geometry audit]
+- [16, Three-dimensional vortex decay, taylor-green-vortex, separate fully 3D analytic field needed]
+- [17, Aircraft ditching, none, no named preset; geometry and coupling audit]
+- [18, Flow past elastic object, none, additional elastic-model audit]
+- [19, Dam break with FSI, dam-break, distinct elastic-structure problem]
+- [20, Jet cooling, impact, distinct thermal problem; model audit]
+- [21, Vegetation cylinder under waves, none, no named preset; inspect exact wave/body model]
+- [22, Weakly compressible TGV, taylor-green-vortex, audit full compressible expansion separately]
+- [23, Wind and cloud shock, none, new benchmark family; staticBlob is different]
+- [24, Manufactured torsion, none, additional solid-model audit]

@@ -1,0 +1,23 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: rotating-square-patch
+family: free-surface
+title: Rotating square patch
+status: stub
+description: ''
+cases:
+- squarePatch
+solvers:
+- weakly-compressible
+- incompressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from:
+- weaklyCompressible/03-rotating-square-patch.ipynb
+- weaklyCompressible/03-rotating-square-patch.py
+- incompressible/03-rotating-square-patch.ipynb
+- incompressible/03-rotating-square-patch.py

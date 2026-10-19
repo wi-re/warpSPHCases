@@ -1,0 +1,22 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: kolmogorov-flow
+family: periodic
+title: Kolmogorov flow
+status: stub
+description: ''
+cases:
+- kolmogorov
+- kolmogorovIncompressible
+solvers:
+- weakly-compressible
+- incompressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from:
+- weaklyCompressible/08-kolmogorov-flow.ipynb
+- weaklyCompressible/08-kolmogorov-flow.py

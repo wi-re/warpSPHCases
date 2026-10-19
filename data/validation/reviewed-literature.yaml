@@ -1,0 +1,270 @@
+# Reviewed benchmark sections and captions. Page numbers are physical PDF pages,
+# one-based, including the title page. A relationship establishes family use;
+# it does not establish an exact match to a warpSPH parameter set.
+# Entries: [family, PDF page, locator, relationship, reference kind]
+- paper: frontiere2017
+  sha256: 0e3c7cad7fa581f171d3092dfe89abc95d3c8397fd7abe92263afc2b841c7485
+  entries:
+  - [kidder, 13, '4.0.1', benchmark-section, analytic]
+  - [linear-wave, 15, '4.1', quantitative-comparison, analytic]
+  - [hydrostatic, 15, '4.2', benchmark-section, equilibrium]
+  - [sod, 17, '4.3.1', quantitative-comparison, exact-riemann]
+  - [sedov, 17, '4.3.2', quantitative-comparison, similarity]
+  - [noh, 20, '4.3.3', quantitative-comparison, analytic]
+  - [woodward-colella, 21, '4.3.4', benchmark-section, numerical]
+  - [gresho, 24, '4.4.1', quantitative-comparison, analytic]
+  - [yee, 24, '4.4.2; continuation p25', quantitative-comparison, analytic]
+  - [kelvin-helmholtz, 25, '4.4.3', benchmark-section, setup-dependent]
+  - [rayleigh-taylor, 29, '4.4.4', benchmark-section, setup-dependent]
+  - [shearing-noh, 30, '4.4.5', benchmark-section, setup-dependent]
+  - [blob-wind, 31, '4.5.1; cloud mass fraction Fig 23 p34', quantitative-comparison, cross-method]
+  - [triple-point, 34, '4.5.2', benchmark-section, cross-method]
+- paper: hopkins2015
+  sha256: 336621d21160ffe900e0df69b35e9e689be6c856cde39abe4fb09f0d6ddb0a64
+  entries:
+  - [linear-wave, 13, '4.2.1; convergence Fig 2 p14', quantitative-comparison, analytic]
+  - [hydrostatic, 14, '4.2.2', benchmark-section, equilibrium]
+  - [gresho, 16, '4.2.3', benchmark-section, analytic]
+  - [keplerian-disc, 19, '4.2.4', benchmark-section, equilibrium]
+  - [sod, 23, '4.3.1', benchmark-section, exact-riemann]
+  - [woodward-colella, 23, '4.3.2', benchmark-section, numerical]
+  - [sedov, 25, '4.3.3', benchmark-section, similarity]
+  - [noh, 26, '4.3.4', benchmark-section, analytic]
+  - [kelvin-helmholtz, 28, '4.4.1', benchmark-section, setup-dependent]
+  - [rayleigh-taylor, 32, '4.4.2', benchmark-section, setup-dependent]
+  - [blob-wind, 33, '4.4.3', benchmark-section, cross-method]
+  - [random-flow, 34, '4.4.4 driven turbulence; related family with different forcing', related-variant, setup-dependent]
+  - [evrard-collapse, 37, '4.5.1', benchmark-section, numerical]
+- paper: owen2014
+  sha256: 41ac7df1eaba750e9f97cf136d2eab7759a7162501a1145cd5b45f284e61214c
+  entries:
+  - [sod, 10, '4.1 planar Sod', quantitative-comparison, exact-riemann]
+  - [noh, 11, '4.2 planar; 4.3 cylindrical p13', quantitative-comparison, analytic]
+  - [sedov, 15, '4.4 planar; 4.5 cylindrical p18', quantitative-comparison, similarity]
+- paper: borrow2022
+  sha256: fb12a94081b696388e68dfaa97719fcbf7fa6e7825af877fa427bce4747713cd
+  entries:
+  - [sod, 7, '5.1', quantitative-comparison, exact-riemann]
+  - [sedov, 8, '5.2', quantitative-comparison, similarity]
+  - [gresho, 9, '5.3', quantitative-comparison, analytic]
+  - [noh, 9, '5.4', benchmark-section, analytic]
+  - [hydrostatic, 10, '5.5 square test', benchmark-section, equilibrium]
+  - [kelvin-helmholtz, 11, '5.6; continuation p12', benchmark-section, setup-dependent]
+  - [blob-wind, 13, '5.7', benchmark-section, cross-method]
+  - [evrard-collapse, 14, '5.8', benchmark-section, numerical]
+- paper: cabezon2017
+  sha256: 9f99544e8eff13478654e2f49ba820d858ce56a511dc6b3034db423db28c5977
+  entries:
+  - [hydrostatic, 8, '5.2 static square', benchmark-section, equilibrium]
+  - [shock-reflection, 11, '5.3.2 wall-shock; not proven identical to shockReflection', related-variant, analytic]
+  - [kelvin-helmholtz, 11, '5.4 fluid instabilities', benchmark-section, setup-dependent]
+  - [rayleigh-taylor, 16, 'Fig 14; quantitative profiles Fig 17 p17', quantitative-comparison, setup-dependent]
+  - [gresho, 16, '5.5', benchmark-section, analytic]
+  - [triple-point, 21, '5.7', benchmark-section, cross-method]
+- paper: sandnes2025
+  sha256: 160c4fc8879a08d17450df4b0660ed835c24aa1d9925e289d61bf7f9cff7bdc3
+  entries:
+  - [hydrostatic, 17, '4.1 square test', benchmark-section, equilibrium]
+  - [sod, 19, '4.2; 3D tube', benchmark-section, exact-riemann]
+  - [kelvin-helmholtz, 20, '4.3 ideal gas; smooth and discontinuous ICs; material variant 4.4 p26', quantitative-comparison, setup-dependent]
+  - [rayleigh-taylor, 28, '4.5 ideal gas; material variant 4.6 p29', benchmark-section, setup-dependent]
+  - [blob-wind, 30, '4.7; dense and mixed gas mass Fig 14 p31', quantitative-comparison, cross-method]
+- paper: groth2023
+  sha256: b881615dee8bb9d0f6da98e98340809591a5194923140d29baa6cd234e1e7378
+  entries:
+  - [keplerian-disc, 9, '4.2.2', benchmark-section, equilibrium]
+  - [hydrostatic, 11, '4.3.3', benchmark-section, equilibrium]
+  - [blob-wind, 11, '4.3.4', benchmark-section, cross-method]
+  - [sod, 11, '4.4.1', benchmark-section, exact-riemann]
+  - [sedov, 13, '4.4.2', benchmark-section, similarity]
+  - [random-flow, 17, '4.6 decaying subsonic turbulence; not same random IC generator', related-variant, setup-dependent]
+- paper: gao2023
+  sha256: 6cff58fc147799335304d01c39cebc1a32a09ce75fc485bcb444341e39b0cd64
+  entries:
+  - [rayleigh-taylor, 14, '4.3', benchmark-section, numerical]
+  - [kelvin-helmholtz, 16, '4.4', benchmark-section, numerical]
+  - [triple-point, 18, '4.5 multi-material variant', related-variant, numerical]
+  - [double-mach, 19, '4.6', benchmark-section, numerical]
+- paper: puri2014
+  sha256: 1ce57ded5e367f8065e38f36567d3fae7bb2b93cdc8890003c95f192511f6f22
+  entries:
+  - [linear-wave, 13, '5.1 acoustic diffusion; accuracy tests 5.2 and 5.3', quantitative-comparison, analytic]
+  - [sjogreen, 15, '5.4', benchmark-section, exact-riemann]
+  - [woodward-colella, 16, '5.5', benchmark-section, numerical]
+  - [noh, 19, '5.6 cylindrical', benchmark-section, analytic]
+- paper: cha2003
+  sha256: b9167e0f3d7ee302fa31f699dced0cbf36881f37af187343fe87b09e79ebe5a2
+  entries:
+  - [linear-wave, 7, '5.1 isothermal wave; different EOS', related-variant, analytic]
+  - [sod, 7, '5.2', benchmark-section, exact-riemann]
+  - [sjogreen, 10, '5.5', benchmark-section, exact-riemann]
+  - [shear-box, 14, '5.7 velocity shear; exact IC match unassessed', related-variant, equilibrium]
+- paper: cha2010
+  sha256: 5aca43a38142296edacbb2092fda0b0405b0c2b04903faf9bc59b21aaf8419d9
+  entries:
+  - [kelvin-helmholtz, 5, '4.1 density ratio 2; 4.2 ratio 10 p6; 4.3 diagonal p7', benchmark-section, setup-dependent]
+  - [blob-wind, 7, '4.4', benchmark-section, cross-method]
+- paper: dehnen2012
+  sha256: 7c0690060d81d855e04c0d202b25cadc4a6ad341b7b8aecc57a7bafd34312214
+  entries:
+  - [linear-wave, 9, '3.3 numerical resolution of sound waves', reference-analysis, analytic]
+  - [gresho, 10, '4.2', benchmark-section, analytic]
+- paper: cullen2010
+  sha256: 450ef6313f52ef7a936c238aac48dfee7409ac14f3d1e68edee675235d204d47
+  entries:
+  - [sod, 9, '5.1', benchmark-section, exact-riemann]
+  - [shearing-noh, 10, '5.3 shearing shock; exact match unassessed', related-variant, setup-dependent]
+  - [keplerian-disc, 7, '4.3 Keplerian ring', related-variant, equilibrium]
+  - [evrard-collapse, 11, '5.4', benchmark-section, numerical]
+- paper: morris1997
+  sha256: b7bf4dd74c0e6e84fb5ffdc2313263ebc98c3e51abb158d89a010fcd1c420f25
+  entries:
+  - [planar-couette, 6, '3.1', quantitative-comparison, analytic]
+  - [periodic-channel, 6, '3.2', quantitative-comparison, analytic]
+  - [stokes-array, 7, '3.3; FEM comparison', quantitative-comparison, numerical]
+- paper: adami2012
+  sha256: 92711204da4a89b42ec84068d5a00c9c86773c565d92c1c66226af775ba5be8c
+  entries:
+  - [periodic-channel, 6, '5.1 Poiseuille', quantitative-comparison, analytic]
+  - [planar-couette, 6, '5.1 Couette', quantitative-comparison, analytic]
+  - [backward-step, 7, '5.2', benchmark-section, numerical]
+  - [stokes-array, 8, '5.3', benchmark-section, numerical]
+  - [hydrostatic-column, 9, '6.1; complex geometry 6.2 p10', benchmark-section, analytic]
+  - [dam-break, 13, '7.2; geometry changed for wall impact p14', benchmark-section, experimental]
+- paper: adami2013
+  sha256: b13c6e2114a448e3874e789f1fd0b5a15b50721eab186434dd4ab50e188a784d
+  entries:
+  - [taylor-green-vortex, 8, '3.3; lattice and relaxed starts', quantitative-comparison, analytic-incompressible]
+  - [lid-driven-cavity, 10, '3.4; Re100/1000/10000', quantitative-comparison, numerical]
+  - [rayleigh-taylor, 13, '3.6; multiphase and 3D variants', related-variant, setup-dependent]
+- paper: ghia1982
+  sha256: 3fa129a94b8eb97c208a452aa3b9b02b0888e788193be107a9ca612d6dc375e2
+  entries:
+  - [lid-driven-cavity, 12, 'Table I p12 and Table II p13; tabulated centreline profiles', reference-source, numerical]
+- paper: marrone2011
+  sha256: 71eab0b55a5fce3e70528c50cf7f618a7033a473fb78f973bfa4666c44379efe
+  entries:
+  - [dam-break, 3, '3.1 vertical wall; 3.2 tall structure p7; 3.3 3D step p8', quantitative-comparison, experimental]
+- paper: marrone2015
+  sha256: 749985f00d9cb59fb059351123377888a6ab686769509ec1e82e5ae3d707849c
+  entries:
+  - [impact, 8, '5.1 1D jets; 5.2 2D equal jets p9; unequal/oblique 5.3 and 5.4 p13/15', quantitative-comparison, analytic-and-numerical]
+- paper: decourcy2024
+  sha256: 478fd4648f647e64aa55a7e85eb2fee4770e54a2c20cf7b476646ff4f682a069
+  entries:
+  - [hydrostatic-column, 14, '4.1.1 rigid base; elastic base 4.1.2 is a separate target', quantitative-comparison, analytic]
+  - [rotating-square-patch, 18, '4.2; BEM comparisons Fig 15 and 16 p23', quantitative-comparison, numerical-bem]
+  - [oscillating-droplet, 23, '4.3 central force', quantitative-comparison, analytic-ode]
+  - [impact, 28, '4.4 normal water-jet impact', quantitative-comparison, analytic-and-numerical]
+  - [dam-break, 29, '4.5', benchmark-section, experimental]
+- paper: sun2017
+  sha256: b688864d722857c904d7211ba363961316754c3ade485df645af0c15ff41e23d
+  entries:
+  - [rotating-square-patch, 10, '4.1', benchmark-section, numerical-bem]
+  - [oscillating-droplet, 12, '4.2 central force', quantitative-comparison, analytic-ode]
+  - [impact, 14, '4.3 rectangular patches', benchmark-section, analytic-and-numerical]
+  - [cylinder-wake, 15, '4.4 inclined ellipse; 4.5 square/rectangle p17; 4.6 sector-cut circle p20', related-variant, numerical]
+- paper: sun2019
+  sha256: 961af6aca3f7a962f2544cdec2c4b33c61fec463d4c20048278ff68a6488da7c
+  entries:
+  - [taylor-green-vortex, 7, '3.1; Re100/1000', quantitative-comparison, analytic-incompressible]
+  - [cylinder-wake, 12, '3.2 inclined ellipse Re1000', related-variant, numerical]
+  - [rotating-square-patch, 15, '3.3', benchmark-section, numerical-bem]
+  - [sloshing-tank, 18, '3.4 shallow-water Series experiment; 3D extension p20; not TC10', related-variant, experimental]
+- paper: oger2016
+  sha256: 0f46f47fdc1020029dca0097617d398856b401ad7649ec3d8b51e9eca7b63f38
+  entries:
+  - [taylor-green-vortex, 9, '6.2', quantitative-comparison, analytic-incompressible]
+  - [lid-driven-cavity, 12, '6.3 Re1000', quantitative-comparison, numerical]
+  - [rotating-square-patch, 15, '6.4', benchmark-section, numerical-bem]
+  - [dam-break, 20, '6.5', benchmark-section, experimental]
+- paper: lind2012
+  sha256: cda3bec3d356d7f2a066fd852d78f77948b76bd7e85e75d50c7dc810aa8d3f00
+  entries:
+  - [taylor-green-vortex, 13, '4.1.1', quantitative-comparison, analytic-incompressible]
+  - [dam-break, 17, '4.2.2.1 dry bed', benchmark-section, experimental]
+  - [wet-bed-dam-break, 18, '4.2.2.2', quantitative-comparison, experimental]
+  - [regular-wave, 20, '4.3', benchmark-section, analytic-and-experimental]
+- paper: ramachandran2021
+  sha256: f4b50dcc48c4e7dd355a316cb2067dad5623a2d556668fee1c449a9aec14d36a
+  entries:
+  - [taylor-green-vortex, 11, '4.1', quantitative-comparison, analytic-incompressible]
+  - [lid-driven-cavity, 13, '4.2; steady 4.2.1 p14', quantitative-comparison, numerical]
+  - [rotating-square-patch, 14, '4.3', benchmark-section, numerical]
+  - [expanding-drop, 15, '4.4 elliptical drop; do not identify with central-force droplet', benchmark-section, analytic-ode]
+  - [dam-break, 16, '4.5 2D; 4.6 3D', benchmark-section, experimental]
+- paper: english2022
+  sha256: cca191627b0b951a5307598e9738a125b0fdec85d8e3b3befa6050ee08370a50
+  entries:
+  - [hydrostatic-column, 5, '4.1 wedge bed', related-variant, analytic]
+  - [sloshing-tank, 5, '4.2 SPHERIC TC10; sensor plots p7', quantitative-comparison, experimental]
+  - [dam-break, 7, '4.3 3D cuboid obstacle; elevations and pressure p10', quantitative-comparison, experimental]
+  - [open-flow, 8, '4.4 fish pass; not generic openFlow geometry', related-variant, experimental]
+- paper: ferrand2013
+  sha256: 57ff9a5da558475f9925c939a2cf8a907434ffcc20bbda810b08cbe5ff354645
+  entries:
+  - [periodic-channel, 17, '4.1 laminar channel', benchmark-section, analytic]
+  - [hydrostatic-column, 19, '4.2.1 wedge tank', related-variant, analytic]
+  - [dam-break, 20, '4.2.2 wedge tank', related-variant, numerical]
+- paper: leroy2014
+  sha256: b59fb1cdb4ad847d9082865d90f3f1258d4f143cffab4c4b6ca483d7ecee3c32
+  entries:
+  - [lid-driven-cavity, 21, '4.1', quantitative-comparison, numerical]
+  - [stokes-array, 24, '4.2 infinite cylinder array in a channel; periodic geometry check needed', related-variant, numerical]
+  - [dam-break, 28, '4.3 wedge', related-variant, numerical]
+- paper: yildiz2009
+  sha256: eee71f77222b965b673791d98cf98d65cde9ca85c2b5b681c29fb269b56b8eb6
+  entries:
+  - [lid-driven-cavity, 12, '3', quantitative-comparison, numerical]
+  - [cylinder-wake, 13, '4; impulsive cylinder experiment; not DFG inflow benchmark', related-variant, experimental]
+- paper: monaghan2013
+  sha256: 5e8b7383940db32aad51d3749a6d45cf97a6308914412c0522e779c0fe6a0c48
+  entries:
+  - [oscillating-droplet, 8, '4; two-layer extension 5 p12', reference-source, analytic-ode]
+  - [rayleigh-taylor, 16, '7; multiphase variant', related-variant, setup-dependent]
+- paper: monaghan1994
+  sha256: 25fe562b27276b96eacdb150cf99bd249f935d31207e628ec912dd5d4485ad95
+  document: scans/monaghan1994_simulating-free-surface-flows.pdf
+  entries:
+  - [expanding-drop, 4, '6; analytic ODE and Table I p4/5', quantitative-comparison, analytic-ode]
+  - [dam-break, 5, '7; Martin and Moyce comparison Table II p6', quantitative-comparison, experimental]
+  - [regular-wave, 6, '9 wave maker; snapshots p7', demonstration, qualitative]
+- paper: colagrossi2003
+  sha256: 4a7a792d6570a481e7fb8f26a4581e7276aa5e63abaaeb9f9d9bd07a613d9804
+  entries:
+  - [dam-break, 7, 'Fig 3 geometry; front evolution Fig 16 p19; pressure Fig 22 p24', quantitative-comparison, experimental-and-numerical]
+- paper: bender2015
+  sha256: 71171b766a300510646a506a05b8235759ae12980213050246cbe318bc0f4619
+  entries:
+  - [dam-break, 6, '4; Fig 3 breaking dam model', demonstration-with-internal-metrics, no-external-reference-established]
+- paper: ihmsen2014
+  sha256: ed921e5e52bcd38ef1d2c4e1fb7d2a6f8569790d086d58ca88943114941cae66
+  document: ihmsen2014_implicit-incompressible-sph.pdf
+  entries:
+  - [dam-break, 6, 'Fig 5 breaking dam', demonstration-with-internal-metrics, no-external-reference-established]
+- paper: bender2026
+  sha256: e86a1dfa38f7a19e57be17f389826cc91907ed3d800c1778165b073c78ace763
+  entries:
+  - [dam-break, 5, '4; Fig 2; error metrics Fig 3 p6', demonstration-with-internal-metrics, no-external-reference-established]
+  - [rayleigh-taylor, 8, 'Fig 7 and 8; multiphase high-density-ratio variants', related-variant, no-external-reference-established]
+- paper: winchenbach2025diffsph
+  sha256: b18ac0c13f6cc67c1a89f3f7189efe097922203805ded8371f5baf3d61b29b7d
+  entries:
+  - [sod, 40, 'E.2; Fig 19', benchmark-section, exact-riemann]
+  - [rayleigh-taylor, 41, 'Fig 20', benchmark-section, setup-dependent]
+  - [taylor-green-vortex, 42, 'Fig 21; diagnostic plots p43', quantitative-comparison, analytic-incompressible]
+  - [lid-driven-cavity, 44, 'Fig 23', benchmark-section, numerical]
+  - [oscillating-droplet, 45, 'Fig 24 and 25', quantitative-comparison, analytic-ode]
+- paper: cornelis2019
+  sha256: 5fcc0a3379ae8d0cec78297a168f00521a83b649e9d03451b2ea22b2265fcbaa
+  entries:
+  - [shear-wave, 5, '5.1; amplitude and density plots p5/6', quantitative-comparison, analytic]
+- paper: king2022
+  sha256: 9546ae7b0523e437021b6b067d803903c49963e9a567f38745439bea6be5ebad
+  entries:
+  - [taylor-green-vortex, 14, '8.1; L2 convergence Fig 9 p15', quantitative-comparison, analytic-incompressible]
+  - [periodic-channel, 15, '8.2; convergence Fig 10 p16', quantitative-comparison, analytic]
+- paper: winchenbach2024pmac
+  sha256: 010045d41ce515061ce80b69c4f0475264cf3ba403db6fd9e9fae93d2a161a51
+  entries:
+  - [taylor-green-vortex, 1, 'Cross-validation setup and generalized randomized family', reference-analysis, analytic-incompressible]

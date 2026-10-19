@@ -218,3 +218,17 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- warpSPHCases ---
+# curated per-run HDF5 trajectories the pages are built from; uploaded to Hugging Face by hand
+trajectories/
+# scratch run store (frames, raw videos, non-promoted runs) and generated figures / site staging
+results/
+build/
+# local-only third-party data (SPHERIC experiment videos, raw sensor series)
+local/
+*.h5
+*.hdf5
+
+# per-page rows that are run but never shown or committed (see docs/CONVENTIONS.md)
+*.internal.yaml

@@ -1,0 +1,20 @@
+# Skeleton written by scripts/migrate_examples.py -- fill in (see docs/CONVENTIONS.md)
+slug: woodward-colella
+family: compressible
+title: Woodward-Colella blast waves
+status: stub
+description: ''
+cases:
+- woodwardColella
+solvers:
+- compressible
+walls: null
+origin:
+  references: []
+runs: []
+media:
+  youtube: null
+notebook: null
+migrated_from:
+- compressible/05-woodward-colella.ipynb
+- compressible/05-woodward-colella.py

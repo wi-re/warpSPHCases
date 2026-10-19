@@ -1,0 +1,243 @@
+# Page inventory + where each page's source material comes from in warpSPH/examples/.
+# Read by scripts/migrate_examples.py (copies sources into cases/<family>/<slug>/from-examples/
+# and writes a skeleton case.yaml). Paths are relative to warpSPH/examples/.
+# `cases` are the registered warpSPH case names (checked against the registry).
+# Media (mp4/avi/gif/png outputs) is never migrated; neither is anything under */export/.
+
+compressible:
+  sod:
+    title: Sod shock tube
+    cases: [sod, sod2d, sod3d]
+    solvers: [compressible]
+    sources: [compressible/01-sod/*.ipynb, compressible/01-sod/*.py, sweeps/sod_highres.yaml]
+  linear-wave:
+    title: Linear acoustic wave
+    cases: [linearWave]
+    solvers: [compressible]
+    sources: [compressible/02-linear-wave.*]
+  kidder:
+    title: Kidder isentropic compression
+    cases: [kidder]
+    solvers: [compressible]
+    sources: [compressible/03-kidder-isentropic-compression.*]
+  noh:
+    title: Noh implosion
+    cases: [noh]
+    solvers: [compressible]
+    sources: [compressible/04-noh-implosion.*]
+  shearing-noh:
+    title: Shearing Noh implosion
+    cases: [shearingNoh]
+    solvers: [compressible]
+    sources: [compressible/11-shearing-noh-implosion-2d.*]
+  woodward-colella:
+    title: Woodward-Colella blast waves
+    cases: [woodwardColella]
+    solvers: [compressible]
+    sources: [compressible/05-woodward-colella.*]
+  sedov:
+    title: Sedov-Taylor blast wave
+    cases: [sedov]
+    solvers: [compressible]
+    sources: [compressible/06-sedov/*.ipynb, compressible/06-sedov/*.py]
+  hydrostatic:
+    title: Hydrostatic equilibrium
+    cases: [hydrostatic]
+    solvers: [compressible]
+    sources: [compressible/08-hydrostatic.*]
+  gresho:
+    title: Gresho-Chan vortex
+    cases: [gresho]
+    solvers: [compressible]
+    sources: [compressible/09-gresho-chan-vortex.*]
+  yee:
+    title: Yee isentropic vortex
+    cases: [yee]
+    solvers: [compressible]
+    sources: [compressible/10-yee-vortex.*]
+  shear-box:
+    title: Periodic shear box
+    cases: [shearBox]
+    solvers: [compressible]
+    sources: []
+  kelvin-helmholtz:
+    title: Kelvin-Helmholtz instability
+    cases: [kelvinHelmholtz]
+    solvers: [compressible]
+    sources: [compressible/12-kelvin-helmholtz.*]
+  rayleigh-taylor:
+    title: Rayleigh-Taylor instability
+    cases: [rayleighTaylor]
+    solvers: [compressible]
+    sources: [compressible/13-rayleigh-taylor.*]
+  triple-point:
+    title: Triple point
+    cases: [triplePoint]
+    solvers: [compressible]
+    sources: [compressible/14-triplePoint/*.ipynb, compressible/14-triplePoint/*.py]
+
+compressible-walls:
+  closed-box:
+    title: Closed box
+    cases: [closedBox]
+    solvers: [compressible]
+    sources: [compressibleWalls/01-closedBox.py]
+  piston:
+    title: Piston
+    cases: [piston]
+    solvers: [compressible]
+    sources: [compressibleWalls/02-piston.py]
+  shock-reflection:
+    title: Shock reflection off a wall
+    cases: [shockReflection]
+    solvers: [compressible]
+    sources: [compressibleWalls/03-shockReflection.py]
+  woodward-colella-walls:
+    title: Woodward-Colella between walls
+    cases: [woodwardColellaWalls]
+    solvers: [compressible]
+    sources: [compressibleWalls/04-woodwardColellaWalls.py]
+  sedov-walls:
+    title: Sedov-Taylor blast in a walled box
+    cases: [sedovWalls]
+    solvers: [compressible]
+    sources: [compressibleWalls/sedovWalls.py]
+  shock-cylinder:
+    title: Shock hitting a cylinder
+    cases: [shockCylinder]
+    solvers: [compressible]
+    sources: [compressibleWalls/06-shockCylinder.py]
+  bow-shock:
+    title: Bow shock
+    cases: [bowShock]
+    solvers: [compressible]
+    sources: [compressibleWalls/07-bowShock.py]
+  forward-step:
+    title: Mach 3 forward step
+    cases: [forwardStep]
+    solvers: [compressible]
+    sources: [compressibleWalls/05-forwardStep.py]
+
+free-surface:
+  dam-break:
+    title: Dam break
+    cases: [dambreak]
+    solvers: [weakly-compressible]
+    sources: [weaklyCompressible/12-dambreak.*, sweeps/dambreak_obstacle.yaml, sweeps/marrone34_rounded_corner.yaml, sweeps/marrone34_sharp_edge.yaml]
+  sloshing-tank:
+    title: Sloshing tank (SPHERIC Test Case 10)
+    cases: [sloshingTank]
+    solvers: [weakly-compressible]
+    sources: [sloshingTank/16-sloshing-tank.ipynb, sloshingTank/run_sloshingTank.py]
+    # small SPHERIC data -> reference/ (see migrate_examples.py: SPHERIC_REFERENCE); experiment videos are never copied
+  oscillating-droplet:
+    title: Oscillating droplet
+    cases: [droplet]
+    solvers: [weakly-compressible]
+    sources: [weaklyCompressible/04-oscillating-droplet.*]
+  rotating-square-patch:
+    title: Rotating square patch
+    cases: [squarePatch]
+    solvers: [weakly-compressible, incompressible]
+    sources: [weaklyCompressible/03-rotating-square-patch.*, incompressible/03-rotating-square-patch.*]
+  impact:
+    title: Impact of fluid bodies
+    cases: [impact]
+    solvers: [weakly-compressible]
+    sources: [weaklyCompressible/01-impact/*.ipynb, weaklyCompressible/01-impact/*.py]
+  column-collapse:
+    title: Water-column collapse
+    cases: [columnCollapse]
+    solvers: [incompressible]
+    sources: []
+
+periodic:
+  taylor-green-vortex:
+    title: Taylor-Green vortex
+    cases: [tgv-wc, tgv]
+    solvers: [weakly-compressible, incompressible]
+    sources: [weaklyCompressible/05-taylor-green-vortex.*, incompressible/01-taylor-green-vortex.*, sweeps/tgv_nu.yaml]
+  kolmogorov-flow:
+    title: Kolmogorov flow
+    cases: [kolmogorov, kolmogorovIncompressible]
+    solvers: [weakly-compressible, incompressible]
+    sources: [weaklyCompressible/08-kolmogorov-flow.*]
+  random-flow:
+    title: Decaying random flow
+    cases: [randomFlow, randomFlowIncompressible]
+    solvers: [weakly-compressible, incompressible]
+    sources: [weaklyCompressible/06-randomFlow/*.ipynb, weaklyCompressible/06-randomFlow/*.py, incompressible/periodic-random-flow.*]
+  shear-wave:
+    title: Shear-wave decay
+    cases: [shearWave]
+    solvers: [incompressible]
+    sources: []
+  static-blob:
+    title: Static blob (null test)
+    cases: [staticBlob]
+    solvers: [incompressible]
+    sources: []
+
+wall-bounded:
+  lid-driven-cavity:
+    title: Lid-driven cavity
+    cases: [ldc]
+    solvers: [weakly-compressible]
+    sources: [weaklyCompressible/09-lid-driven-cavity.*]
+  moving-obstacle:
+    title: Flow past a spinning obstacle
+    cases: [movingObstacle]
+    solvers: [weakly-compressible]
+    sources: [weaklyCompressible/10-moving-obstacle.*]
+  driven-square:
+    title: Driven square
+    cases: [drivenSquare]
+    solvers: [weakly-compressible]
+    sources: [weaklyCompressible/11-driven-square.*]
+  open-flow:
+    title: Open channel flow past an obstacle
+    cases: [openFlow]
+    solvers: [weakly-compressible]
+    sources: [weaklyCompressible/13-open-flow.*]
+
+boundaries:
+  periodic-channel:
+    title: Periodic channel (Poiseuille)
+    cases: [periodicChannel]
+    solvers: [weakly-compressible]
+    sources: []
+  stokes-array:
+    title: Stokes flow through a periodic array
+    cases: [stokesArray]
+    solvers: [weakly-compressible]
+    sources: []
+  taylor-couette:
+    title: Taylor-Couette flow
+    cases: [taylorCouette]
+    solvers: [weakly-compressible]
+    sources: []
+  cylinder-wake:
+    title: Flow past a cylinder (wake)
+    cases: [cylinderWake]
+    solvers: [weakly-compressible]
+    sources: []
+  hydrostatic-column:
+    title: Hydrostatic column
+    cases: [hydrostaticColumn]
+    solvers: [incompressible]
+    sources: [incompressible/hydrostatic-column-troubleshooting.ipynb]
+
+demos:
+  wave-equation:
+    title: Scalar wave equation
+    cases: [waveEquation]
+    solvers: [wave-equation]
+    sources: [wave/*.ipynb]
+
+# Not mapped to a page: copied to legacy/unmapped-examples/ so warpSPH/examples can be deleted safely.
+unmapped:
+  - weaklyCompressible/naca.ipynb
+  - weaklyCompressible/acousticCore_implicit_vs_explicit.ipynb
+  - weaklyCompressible/utils.py
+  - incompressible/1d-test.ipynb
+# Not copied at all: *_PLAN.md / MIGRATION_*.md / EXAMPLES_SUMMARY.md (superseded by this repo), outputs/, export/, media.
